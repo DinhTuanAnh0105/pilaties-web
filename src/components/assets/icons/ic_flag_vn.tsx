@@ -1,0 +1,15 @@
+import React from 'react';
+
+const icon = () => {
+  return (
+    <svg width='18' height='18' viewBox='0 0 18 18' fill='none' xmlns='http://www.w3.org/2000/svg'>
+      <circle cx='9' cy='9' r='9' fill='#FF0000' />
+      <path
+        d='M9 3L10.3471 7.1459H14.7063L11.1796 9.7082L12.5267 13.8541L9 11.2918L5.47329 13.8541L6.82037 9.7082L3.29366 7.1459H7.65292L9 3Z'
+        fill='#FAFF00'
+      />
+    </svg>
+  );
+};
+
+export default icon;

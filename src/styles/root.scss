@@ -1,6 +1,9 @@
 @import './variables.scss';
 @import './mixins.scss';
+@import './pages/login.scss';
+
+@import url('../assets/fonts/index.scss');
 
 body {
-  font-family: 'Roboto', sans-serif;
+  font-family: 'quicksand-regular';
 }
