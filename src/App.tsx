@@ -11,6 +11,7 @@ import { theme } from './theme';
 import { useToggleTheme } from 'providers/ToggleThemeProvider';
 import { ErrorBoundary } from 'react-error-boundary';
 import CommonStyles from 'components/CommonStyles';
+import 'styles/root.scss';
 
 const ErrorFallback = ({ error, resetErrorBoundary }: any) => {
   return (

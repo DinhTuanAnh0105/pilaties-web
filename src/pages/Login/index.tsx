@@ -1,27 +1,60 @@
-import React from 'react';
+import React, { useState } from 'react';
 import CommonIcons from 'components/CommonIcons';
 import CommonStyles from 'components/CommonStyles';
 import { FastField, Form, Formik } from 'formik';
-import { useTheme } from '@mui/material';
+import { Box, IconButton, InputAdornment, SvgIcon, useTheme } from '@mui/material';
 import TextField from 'components/CustomFields/TextField';
 import * as Yup from 'yup';
 import { showError } from 'helpers/toast';
 import { useAuth } from 'providers/AuthenticationProvider';
 import { Navigate } from 'react-router-dom';
 import BaseUrl from 'consts/baseUrl';
-
-const validationLoginSchema = Yup.object().shape({
-  username: Yup.string().required('Username is required field!'),
-  password: Yup.string().required('Password is required field!'),
-});
+import { image } from 'consts/images/login';
+import styled from '@emotion/styled';
+import { useTranslation } from 'react-i18next';
+import { IconFlagEngland, IconFlagKorea, IconFlagVN } from 'components/assets/icons';
+import { ImageLogo } from 'components/assets/images';
+import Visibility from '@mui/icons-material/Visibility';
+import VisibilityOff from '@mui/icons-material/VisibilityOff';
+// import logo from 'assets/images/logo.svg';
 
 const Login = () => {
   //! State
+  const { t } = useTranslation();
   const auth = useAuth();
   const theme = useTheme();
   const { login } = useAuth();
 
+  const [language, setLanguage] = useState<string>('vietnamese');
+  const [showPassword, setShowPassword] = useState<boolean>(false);
+
   //! Function
+  const validationLoginSchema = Yup.object().shape({
+    username: Yup.string().required(t('validation:v_username') || ''),
+    password: Yup.string().required(t('validation:v_password') || ''),
+  });
+
+  const languages = [
+    {
+      id: 'vietnamese',
+      name: t('shared:vietnamese'),
+      flag: <IconFlagVN />,
+    },
+    {
+      id: 'korean',
+      name: t('shared:korean'),
+      flag: <IconFlagKorea />,
+    },
+    {
+      id: 'english',
+      name: t('shared:english'),
+      flag: <IconFlagEngland />,
+    },
+  ];
+
+  const handleShowPassword = () => {
+    setShowPassword(!showPassword);
+  };
 
   //! Render
   if (auth.isLogged) {
@@ -36,8 +69,8 @@ const Login = () => {
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: theme.colors?.purple,
-        p: 2,
+        backgroundColor: '#ededed',
+        // p: 2,
       }}
     >
       <Formik
@@ -60,17 +93,44 @@ const Login = () => {
             <CommonStyles.Box
               sx={{
                 boxShadow: 2,
-                p: 2,
-                borderRadius: 1,
+                p: 4,
+                borderRadius: 1.25,
                 backgroundColor: theme.colors?.white,
-                width: 450,
+                width: 446,
+                display: 'flex',
+                flexDirection: 'column',
+                gap: '24px',
               }}
             >
-              <Form>
-                <CommonStyles.Typography variant='h6' sx={{ mb: 2 }}>
-                  Sign in with your username and password (don/don)
+              <CommonStyles.Box
+                sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+              >
+                <ImageLogo />
+                <CommonStyles.Typography
+                  sx={{
+                    fontSize: 24,
+                    fontWeight: 600,
+                    lineHeight: '36px',
+                    color: '#8428E6',
+                    ml: 1,
+                  }}
+                >
+                  {t('shared:nameapp')}
                 </CommonStyles.Typography>
-
+              </CommonStyles.Box>
+              <CommonStyles.Box sx={{ textAlign: 'center' }}>
+                <CommonStyles.Typography
+                  sx={{
+                    fontSize: 24,
+                    fontWeight: 600,
+                    lineHeight: '36px',
+                    color: '#374957',
+                  }}
+                >
+                  {t('shared:login')}
+                </CommonStyles.Typography>
+              </CommonStyles.Box>
+              <Form>
                 <CommonStyles.Box
                   sx={{
                     display: 'flex',
@@ -80,25 +140,70 @@ const Login = () => {
                     },
                   }}
                 >
-                  <FastField component={TextField} name='username' label='Username' fullWidth />
+                  <FastField
+                    component={TextField}
+                    name='username'
+                    fullWidth
+                    label='Tên đăng nhập'
+                    required
+                    placeholder='Nhập số điện thoại'
+                  />
                   <FastField
                     component={TextField}
                     name='password'
-                    label='Password'
-                    type='password'
+                    label='Mật khẩu'
+                    type={showPassword ? 'text' : 'password'}
                     fullWidth
+                    placeholder='Nhập mật khẩu'
+                    required
+                    InputProps={{
+                      endAdornment: (
+                        <InputAdornment position='end'>
+                          <IconButton onClick={handleShowPassword}>
+                            {showPassword ? <VisibilityOff /> : <Visibility />}
+                          </IconButton>
+                        </InputAdornment>
+                      ),
+                    }}
                   />
                 </CommonStyles.Box>
-
                 <CommonStyles.Button
                   type='submit'
                   loading={isSubmitting}
                   fullWidth
-                  startIcon={<CommonIcons.SendIcon />}
+                  sx={{ background: '#8428E6', height: 40, borderRadius: '6px' }}
                 >
-                  Sign in
+                  {t('shared:login')}
                 </CommonStyles.Button>
               </Form>
+              <CommonStyles.Box sx={{ display: 'flex', gap: '17px', justifyContent: 'center' }}>
+                {languages.map((item) => {
+                  return (
+                    <CommonStyles.Box
+                      key={item.id}
+                      className='login__chooselanguage'
+                      sx={{
+                        display: 'flex',
+                        gap: 1,
+                        alignItems: 'center',
+                        background: item.id === language ? '#d9d9d9' : null,
+                        cursor: 'pointer',
+                        padding: 1,
+                        borderRadius: '6px',
+                        color: '#111',
+                      }}
+                      onClick={() => setLanguage(item.id)}
+                    >
+                      {item.flag}
+                      <CommonStyles.Typography
+                        sx={{ fontSize: 14, fontWeight: 600, lineHeight: '18px' }}
+                      >
+                        {item.name}
+                      </CommonStyles.Typography>
+                    </CommonStyles.Box>
+                  );
+                })}
+              </CommonStyles.Box>
             </CommonStyles.Box>
           );
         }}
