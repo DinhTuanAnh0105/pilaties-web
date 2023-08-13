@@ -7,6 +7,7 @@ import { langMethod } from 'i18n';
 import useGetTodos from 'hooks/todos/useGetTodos';
 import useFiltersHandler from 'hooks/useFiltersHandler';
 import cachedKeys from 'consts/cachedKeys';
+import Student from './Student';
 
 const Apps = () => {
   //! State
@@ -41,7 +42,7 @@ const Apps = () => {
     );
   };
 
-  if (isUser) {
+  if (!isUser) {
     return (
       <CommonStyles.Box>
         <CommonStyles.Typography variant='h4' sx={{ mb: 2 }}>
@@ -71,7 +72,22 @@ const Apps = () => {
     );
   }
 
-  return <CommonStyles.Box sx={{ display: 'flex', gap: 5 }}>Admin view</CommonStyles.Box>;
+  return (
+    <CommonStyles.Box
+      sx={{
+        display: 'flex',
+        flexWrap: 'wrap',
+        gap: 2,
+        [theme.breakpoints.down('md')]: {
+          flexDirection: 'column',
+        },
+      }}
+    >
+      {data.map((el) => {
+        return <Student key={el.id} student={el} />;
+      })}
+    </CommonStyles.Box>
+  );
 };
 
 export default React.memo(Apps);

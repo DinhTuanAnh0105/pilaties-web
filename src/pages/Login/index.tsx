@@ -1,21 +1,18 @@
-import React, { useState } from 'react';
-import CommonIcons from 'components/CommonIcons';
-import CommonStyles from 'components/CommonStyles';
-import { FastField, Form, Formik } from 'formik';
-import { Box, IconButton, InputAdornment, SvgIcon, useTheme } from '@mui/material';
-import TextField from 'components/CustomFields/TextField';
-import * as Yup from 'yup';
-import { showError } from 'helpers/toast';
-import { useAuth } from 'providers/AuthenticationProvider';
-import { Navigate } from 'react-router-dom';
-import BaseUrl from 'consts/baseUrl';
-import { image } from 'consts/images/login';
-import styled from '@emotion/styled';
-import { useTranslation } from 'react-i18next';
-import { IconFlagEngland, IconFlagKorea, IconFlagVN } from 'components/assets/icons';
-import { ImageLogo } from 'components/assets/images';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
+import { IconButton, InputAdornment, useTheme } from '@mui/material';
+import { IconFlagEngland, IconFlagKorea, IconFlagVN } from 'components/assets/icons';
+import { ImageLogo } from 'components/assets/images';
+import CommonStyles from 'components/CommonStyles';
+import TextField from 'components/CustomFields/TextField';
+import BaseUrl from 'consts/baseUrl';
+import { Field, Form, Formik } from 'formik';
+import { showError } from 'helpers/toast';
+import { useAuth } from 'providers/AuthenticationProvider';
+import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import { Navigate } from 'react-router-dom';
+import * as Yup from 'yup';
 // import logo from 'assets/images/logo.svg';
 
 const Login = () => {
@@ -140,7 +137,7 @@ const Login = () => {
                     },
                   }}
                 >
-                  <FastField
+                  <Field
                     component={TextField}
                     name='username'
                     fullWidth
@@ -148,7 +145,7 @@ const Login = () => {
                     required
                     placeholder='Nhập số điện thoại'
                   />
-                  <FastField
+                  <Field
                     component={TextField}
                     name='password'
                     label='Mật khẩu'
