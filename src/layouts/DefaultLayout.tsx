@@ -1,289 +1,178 @@
+import Box from '@mui/material/Box';
+import { useTheme } from '@mui/material/styles';
 import * as React from 'react';
 import { Suspense } from 'react';
-import { styled, useTheme, Theme, CSSObject } from '@mui/material/styles';
-import Box from '@mui/material/Box';
-import MuiDrawer from '@mui/material/Drawer';
 // import MuiAppBar, { AppBarProps as MuiAppBarProps } from '@mui/material/AppBar';
-import List from '@mui/material/List';
-import Divider from '@mui/material/Divider';
-import ListItem from '@mui/material/ListItem';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemIcon from '@mui/material/ListItemIcon';
+import { AppBar, Button, Menu, MenuItem, Toolbar, Typography } from '@mui/material';
 import CommonStyles from 'components/CommonStyles';
-import CommonIcons from 'components/CommonIcons';
-import { NavLink } from 'react-router-dom';
-import useHandleAsideMenu from 'hooks/useHandleAsideMenu';
+import PopupState, { bindTrigger, bindMenu } from 'material-ui-popup-state';
+import {
+  IconArrowDown,
+  IconCalendar,
+  IconCard,
+  IconContract,
+  IconHome,
+  IconStatistical,
+} from 'components/assets/icons';
+import { ImageLogo } from 'components/assets/images';
 import useCheckWidth from 'hooks/useCheckWidth';
+import useHandleAsideMenu from 'hooks/useHandleAsideMenu';
 import { useAuth } from 'providers/AuthenticationProvider';
+import { useTranslation } from 'react-i18next';
+import { AnyPtrRecord } from 'dns';
 
-const drawerWidth = 90;
-
-const openedMixin = (theme: Theme): CSSObject => ({
-  width: drawerWidth,
-  transition: theme.transitions.create('width', {
-    easing: theme.transitions.easing.sharp,
-    duration: theme.transitions.duration.enteringScreen,
-  }),
-  overflowX: 'hidden',
-});
-
-const closedMixin = (theme: Theme): CSSObject => ({
-  transition: theme.transitions.create('width', {
-    easing: theme.transitions.easing.sharp,
-    duration: theme.transitions.duration.leavingScreen,
-  }),
-  overflowX: 'hidden',
-  width: `calc(${theme.spacing(7)} + 1px)`,
-  [theme.breakpoints.up('sm')]: {
-    width: `calc(${theme.spacing(8)} + 1px)`,
+const pages = [
+  {
+    id: 1,
+    name: 'Thống kê',
+    icon: <IconStatistical />,
+    href: '',
+    children: [],
   },
-});
-
-// const DrawerHeader = styled('div')(({ theme }) => ({
-//   display: 'flex',
-//   alignItems: 'center',
-//   justifyContent: 'flex-end',
-//   padding: theme.spacing(0, 1),
-//   // necessary for content to be below app bar
-//   ...theme.mixins.toolbar,
-// }));
-
-// interface AppBarProps extends MuiAppBarProps {
-//   open?: boolean;
-// }
-
-// const AppBar = styled(MuiAppBar, {
-//   shouldForwardProp: (prop) => prop !== 'open',
-// })<AppBarProps>(({ theme, open }) => ({
-//   zIndex: theme.zIndex.drawer + 1,
-//   transition: theme.transitions.create(['width', 'margin'], {
-//     easing: theme.transitions.easing.sharp,
-//     duration: theme.transitions.duration.leavingScreen,
-//   }),
-//   ...(open && {
-//     marginLeft: drawerWidth,
-//     width: `calc(100% - ${drawerWidth}px)`,
-//     transition: theme.transitions.create(['width', 'margin'], {
-//       easing: theme.transitions.easing.sharp,
-//       duration: theme.transitions.duration.enteringScreen,
-//     }),
-//   }),
-// }));
-
-const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' })(
-  ({ theme, open }) => ({
-    width: drawerWidth,
-    flexShrink: 0,
-    whiteSpace: 'nowrap',
-    boxSizing: 'border-box',
-    ...(open && {
-      ...openedMixin(theme),
-      '& .MuiDrawer-paper': openedMixin(theme),
-    }),
-    ...(!open && {
-      ...closedMixin(theme),
-      '& .MuiDrawer-paper': closedMixin(theme),
-    }),
-  })
-);
+  {
+    id: 2,
+    name: 'Hợp đồng',
+    icon: <IconContract />,
+    href: '',
+    children: [],
+  },
+  {
+    id: 3,
+    name: 'Lớp học',
+    icon: <IconCalendar />,
+    href: '',
+    children: [],
+  },
+  {
+    id: 4,
+    name: 'Hội viên',
+    icon: <IconCard />,
+    href: '',
+    children: [],
+  },
+  {
+    id: 5,
+    name: 'Quản lý chung',
+    icon: <IconHome />,
+    children: [
+      {
+        id: 5.1,
+        name: 'Quản lý trung tâm, cơ sở',
+        icon: null,
+        href: '',
+        children: [],
+      },
+      {
+        id: 5.2,
+        name: 'Quản lý nhân viên',
+        icon: null,
+        href: '',
+        children: [],
+      },
+      {
+        id: 5.3,
+        name: 'Quản lý gói tập',
+        icon: null,
+        href: '',
+        children: [],
+      },
+      {
+        id: 5.4,
+        name: 'Thông báo hệ thống',
+        icon: null,
+        href: '',
+        children: [],
+      },
+    ],
+  },
+];
 
 const DefaultLayout = ({ children }: { children: React.ReactNode }) => {
   //! State
   const auth = useAuth();
   const theme = useTheme();
-  const [
-    open,
-    // setOpen
-  ] = React.useState(true);
+  const [open, setOpen] = React.useState(true);
   const asideMenu = useHandleAsideMenu();
   const { isMobile } = useCheckWidth();
+  const { t } = useTranslation();
 
   //! Function
-  // const handleDrawerOpen = () => {
-  //   setOpen(true);
-  // };
-
-  // const handleDrawerClose = () => {
-  //   setOpen(false);
-  // };
-
-  // const customStyleHeader = React.useMemo(() => {
-  //   return {
-  //     [theme.breakpoints.up('xs')]: {
-  //       minHeight: 0,
-  //       height: 50,
-  //     },
-  //   };
-  // }, [theme]);
+  const customStyleHeader = React.useMemo(() => {
+    return {
+      [theme.breakpoints.up('xs')]: {
+        // minHeight: 0,
+        height: '42px',
+        padding: '24px',
+        background: '#1E3150',
+      },
+    };
+  }, [theme]);
 
   //! Render
-  // const renderAppBar = () => {
-  //   return (
-  //     <Typography variant='h6' noWrap component='div'>
-  //       Custom header here
-  //     </Typography>
-  //   );
-  // };
-
-  const renderBtnLogout = () => {
-    return (
-      <List>
-        <ListItem disablePadding sx={{ display: 'block' }}>
-          <ListItemButton
-            onClick={() => {
-              auth.logout();
-            }}
-            sx={{
-              minHeight: 48,
-              justifyContent: open ? 'initial' : 'center',
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-            }}
-          >
-            <ListItemIcon
-              sx={{
-                minWidth: 0,
-                justifyContent: 'center',
-                color: theme.colors?.white,
-              }}
-            >
-              <CommonIcons.LogoutIcon />
-            </ListItemIcon>
-            <CommonStyles.Typography
-              sx={{
-                opacity: open ? 1 : 0,
-                fontSize: '0.825rem',
-                pt: 0.5,
-                color: theme.colors?.white,
-              }}
-            >
-              Logout
-            </CommonStyles.Typography>
-          </ListItemButton>
-        </ListItem>
-      </List>
-    );
-  };
-
-  const renderAsideMenu = () => {
-    return asideMenu.map((eachList, idxEachList) => {
-      return (
-        <React.Fragment key={`${idxEachList}`}>
-          <List
-            key={`${idxEachList}`}
-            sx={{
-              maxHeight: '92vh',
-              overflow: 'auto',
-              [theme.breakpoints.down('sm')]: {
-                display: 'flex',
-              },
-            }}
-          >
-            {eachList.map((menu) => {
-              return (
-                <NavLink
-                  key={menu.label}
-                  to={menu.href}
-                  style={{ textDecoration: 'none', color: 'inherit' }}
-                >
-                  <ListItem disablePadding sx={{ display: 'block' }}>
-                    <ListItemButton
-                      sx={{
-                        minHeight: 48,
-                        justifyContent: open ? 'initial' : 'center',
-                        display: 'flex',
-                        flexDirection: 'column',
-                        alignItems: 'center',
-                      }}
-                    >
-                      <ListItemIcon
-                        sx={{
-                          minWidth: 0,
-                          justifyContent: 'center',
-                          color: theme.colors?.white,
-                        }}
-                      >
-                        <menu.icon />
-                      </ListItemIcon>
-                      <CommonStyles.Typography
-                        sx={{
-                          opacity: open ? 1 : 0,
-                          fontSize: '0.825rem',
-                          pt: 0.5,
-                          color: theme.colors?.white,
-                          whiteSpace: 'pre-wrap',
-                          textAlign: 'center',
-                        }}
-                      >
-                        {menu.label}
-                      </CommonStyles.Typography>
-                    </ListItemButton>
-                  </ListItem>
-                </NavLink>
-              );
-            })}
-          </List>
-          {idxEachList !== asideMenu.length - 1 && <Divider />}
-        </React.Fragment>
-      );
-    });
-  };
-
   return (
     <Box sx={{ display: 'flex' }}>
-      {/* <AppBar position='fixed' open={open}>
-        <Toolbar sx={customStyleHeader}>
-          <CommonStyles.Button
-            isIconButton
-            color='inherit'
-            aria-label='open drawer'
-            onClick={handleDrawerOpen}
-            edge='start'
+      <AppBar position='fixed'>
+        {/* <Container maxWidth='xl'> */}
+        <Toolbar sx={customStyleHeader} disableGutters>
+          <ImageLogo />
+          <Typography
+            variant='h6'
+            noWrap
+            component='a'
+            href='/'
             sx={{
-              marginRight: 5,
-              ...(open && { display: 'none' }),
+              mr: 2,
+              ml: 1,
+              // display: { xs: 'none', md: 'flex' },
+              fontWeight: 600,
+              lineHeight: '36px',
+              color: 'inherit',
+              textDecoration: 'none',
+              fontSize: '24px',
             }}
           >
-            <CommonIcons.MenuIcon />
-          </CommonStyles.Button>
+            {t('shared:nameapp')}
+          </Typography>
+          <PopupState variant='popover' popupId='demo-popup-menu'>
+            {(popupState: any) => {
+              console.log('popupState', popupState);
 
-          {renderAppBar()}
+              return (
+                <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
+                  {pages.map((page) => (
+                    <React.Fragment key={page.id}>
+                      <Button
+                        key={page.id}
+                        sx={{
+                          my: 2,
+                          mr: 1,
+                          color: 'white',
+                          display: 'flex',
+                          alignItems: 'center',
+                          gap: 1,
+                        }}
+                        {...bindTrigger(popupState)}
+                      >
+                        {page.icon}
+                        {page.name}
+                        {page.children.length > 0 && <IconArrowDown />}
+                      </Button>
+                      {page.children.length > 0 && (
+                        <Menu {...bindMenu(popupState)}>
+                          {page.children.map((child) => (
+                            <MenuItem key={child.id}>{child.name}</MenuItem>
+                          ))}
+                        </Menu>
+                      )}
+                    </React.Fragment>
+                  ))}
+                </Box>
+              );
+            }}
+          </PopupState>
         </Toolbar>
-      </AppBar> */}
-
-      <Drawer
-        variant='permanent'
-        open={open}
-        anchor={isMobile ? 'top' : undefined}
-        sx={{
-          [theme.breakpoints.down('sm')]: {
-            width: '0px',
-          },
-          '& > div': {
-            display: 'flex',
-            flexDirection: 'column',
-            justifyContent: 'space-between',
-            backgroundColor: theme?.colors?.purple,
-
-            [theme.breakpoints.down('sm')]: {
-              width: '100% !important',
-              flexDirection: 'row',
-            },
-          },
-        }}
-      >
-        {/* <DrawerHeader sx={customStyleHeader}>
-          <CommonStyles.Button isIconButton onClick={handleDrawerClose}>
-            {theme.direction === 'rtl' ? <CommonIcons.RightIcon /> : <CommonIcons.LeftIcon />}
-          </CommonStyles.Button>
-        </DrawerHeader>
-
-        <Divider /> */}
-        {renderAsideMenu()}
-
-        {!auth.loading && renderBtnLogout()}
-      </Drawer>
+        {/* </Container> */}
+      </AppBar>
 
       <Box component='main' sx={{ flexGrow: 1, p: 3 }}>
         {/* <DrawerHeader /> */}
