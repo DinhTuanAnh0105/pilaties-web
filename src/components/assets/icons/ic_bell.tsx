@@ -1,0 +1,31 @@
+import React from 'react';
+
+const icon = () => {
+  return (
+    <svg width='32' height='32' viewBox='0 0 32 32' fill='none' xmlns='http://www.w3.org/2000/svg'>
+      <path
+        d='M26.9603 22.1607C26.9603 23.294 26.0403 24.214 24.9069 24.214H7.09363C5.96029 24.214 5.04028 23.294 5.04028 22.1607C5.04028 21.0273 5.96029 20.1073 7.09363 20.1073H7.7736V13.254C7.7736 8.72067 11.4536 5.02734 16.0003 5.02734C18.267 5.02734 20.3203 5.94734 21.8136 7.44067C23.3069 8.92067 24.227 10.974 24.227 13.254V20.1073H24.9069C26.0403 20.1073 26.9603 21.0273 26.9603 22.1607Z'
+        stroke='white'
+        strokeWidth='1.5'
+        strokeLinecap='round'
+        strokeLinejoin='round'
+      />
+      <path
+        d='M16 5.0413V3.66797'
+        stroke='white'
+        strokeWidth='1.5'
+        strokeLinecap='round'
+        strokeLinejoin='round'
+      />
+      <path
+        d='M20.1064 24.2266C20.1064 26.5066 18.2664 28.3332 15.9997 28.3332C13.733 28.3332 11.8931 26.4932 11.8931 24.2266H20.1064Z'
+        stroke='white'
+        strokeWidth='1.5'
+        strokeLinecap='round'
+        strokeLinejoin='round'
+      />
+    </svg>
+  );
+};
+
+export default icon;

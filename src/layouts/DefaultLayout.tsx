@@ -15,6 +15,9 @@ import { NavLink } from 'react-router-dom';
 import useHandleAsideMenu from 'hooks/useHandleAsideMenu';
 import useCheckWidth from 'hooks/useCheckWidth';
 import { useAuth } from 'providers/AuthenticationProvider';
+import { ImageLogo } from 'components/assets/images';
+import { useTranslation } from 'react-i18next';
+import CustomMenu from 'components/Menu';
 
 const drawerWidth = 90;
 
@@ -89,6 +92,7 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 
 const DefaultLayout = ({ children }: { children: React.ReactNode }) => {
   //! State
+  const { t } = useTranslation();
   const auth = useAuth();
   const theme = useTheme();
   const [
@@ -166,110 +170,44 @@ const DefaultLayout = ({ children }: { children: React.ReactNode }) => {
     );
   };
 
-  const renderAsideMenu = () => {
-    return asideMenu.map((eachList, idxEachList) => {
-      return (
-        <React.Fragment key={`${idxEachList}`}>
-          <List
-            key={`${idxEachList}`}
-            sx={{
-              maxHeight: '92vh',
-              overflow: 'auto',
-              [theme.breakpoints.down('sm')]: {
-                display: 'flex',
-              },
-            }}
-          >
-            {eachList.map((menu) => {
-              return (
-                <NavLink
-                  key={menu.label}
-                  to={menu.href}
-                  style={{ textDecoration: 'none', color: 'inherit' }}
-                >
-                  <ListItem disablePadding sx={{ display: 'block' }}>
-                    <ListItemButton
-                      sx={{
-                        minHeight: 48,
-                        justifyContent: open ? 'initial' : 'center',
-                        display: 'flex',
-                        flexDirection: 'column',
-                        alignItems: 'center',
-                      }}
-                    >
-                      <ListItemIcon
-                        sx={{
-                          minWidth: 0,
-                          justifyContent: 'center',
-                          color: theme.colors?.white,
-                        }}
-                      >
-                        <menu.icon />
-                      </ListItemIcon>
-                      <CommonStyles.Typography
-                        sx={{
-                          opacity: open ? 1 : 0,
-                          fontSize: '0.825rem',
-                          pt: 0.5,
-                          color: theme.colors?.white,
-                          whiteSpace: 'pre-wrap',
-                          textAlign: 'center',
-                        }}
-                      >
-                        {menu.label}
-                      </CommonStyles.Typography>
-                    </ListItemButton>
-                  </ListItem>
-                </NavLink>
-              );
-            })}
-          </List>
-          {idxEachList !== asideMenu.length - 1 && <Divider />}
-        </React.Fragment>
-      );
-    });
+  const renderLogo = () => {
+    return (
+      <CommonStyles.Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+        <ImageLogo />
+        <CommonStyles.Typography
+          sx={{
+            fontSize: 24,
+            fontWeight: 600,
+            lineHeight: '36px',
+            color: '#8428E6',
+            ml: 1,
+          }}
+        >
+          {t('shared:nameapp')}
+        </CommonStyles.Typography>
+      </CommonStyles.Box>
+    );
   };
 
   return (
-    <Box sx={{ display: 'flex' }}>
-      {/* <AppBar position='fixed' open={open}>
-        <Toolbar sx={customStyleHeader}>
-          <CommonStyles.Button
-            isIconButton
-            color='inherit'
-            aria-label='open drawer'
-            onClick={handleDrawerOpen}
-            edge='start'
-            sx={{
-              marginRight: 5,
-              ...(open && { display: 'none' }),
-            }}
-          >
-            <CommonIcons.MenuIcon />
-          </CommonStyles.Button>
-
-          {renderAppBar()}
-        </Toolbar>
-      </AppBar> */}
-
+    <Box sx={{}}>
       <Drawer
         variant='permanent'
         open={open}
-        anchor={isMobile ? 'top' : undefined}
+        // anchor={isMobile ? 'top' : undefined}
+        anchor={'top'}
         sx={{
           [theme.breakpoints.down('sm')]: {
             width: '0px',
           },
           '& > div': {
             display: 'flex',
-            flexDirection: 'column',
+            flexDirection: 'row',
             justifyContent: 'space-between',
-            backgroundColor: theme?.colors?.purple,
-
-            [theme.breakpoints.down('sm')]: {
-              width: '100% !important',
-              flexDirection: 'row',
-            },
+            backgroundColor: theme?.colors?.primary?.deepBlue,
+            width: '100% !important',
+            height: '90px !important',
+            padding: '24px 16px',
           },
         }}
       >
@@ -280,12 +218,13 @@ const DefaultLayout = ({ children }: { children: React.ReactNode }) => {
         </DrawerHeader>
 
         <Divider /> */}
-        {renderAsideMenu()}
+        {renderLogo()}
+        <CustomMenu />
 
-        {!auth.loading && renderBtnLogout()}
+        {/* {!auth.loading && renderBtnLogout()} */}
       </Drawer>
 
-      <Box component='main' sx={{ flexGrow: 1, p: 3 }}>
+      <Box component='main' sx={{ flexGrow: 1, p: 3, mt: 10 }}>
         {/* <DrawerHeader /> */}
         <Suspense fallback={<CommonStyles.Loading />}>{children}</Suspense>
       </Box>

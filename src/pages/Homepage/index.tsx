@@ -42,7 +42,7 @@ const Apps = () => {
     );
   };
 
-  if (!isUser) {
+  if (isUser) {
     return (
       <CommonStyles.Box>
         <CommonStyles.Typography variant='h4' sx={{ mb: 2 }}>

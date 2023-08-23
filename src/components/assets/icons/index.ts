@@ -1,3 +1,13 @@
 export { default as IconFlagVN } from './ic_flag_vn';
 export { default as IconFlagKorea } from './ic_flag_korea';
 export { default as IconFlagEngland } from './ic_flag_england';
+export { default as IconEye } from './ic_eye';
+export { default as IconEyeHide } from './ic_eye_hide';
+export { default as IconStatistical } from './ic_statistical';
+export { default as IconContract } from './ic_contract';
+export { default as IconCalendar } from './ic_calendar';
+export { default as IconCard } from './ic_card';
+export { default as IconHome } from './ic_home';
+export { default as IconArrowUp } from './ic_arrow_up';
+export { default as IconArrowDown } from './ic_arrow_down';
+export { default as IconBell } from './ic_bell';
