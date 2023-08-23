@@ -28,87 +28,7 @@ import useHandleAsideMenu from 'hooks/useHandleAsideMenu';
 import { useAuth } from 'providers/AuthenticationProvider';
 import { useTranslation } from 'react-i18next';
 import { AnyPtrRecord } from 'dns';
-
-const pages = [
-  {
-    id: 1,
-    name: 'Thống kê',
-    icon: <IconStatistical />,
-    href: '',
-    children: [],
-  },
-  {
-    id: 2,
-    name: 'Hợp đồng',
-    icon: <IconContract />,
-    href: '',
-    children: [],
-  },
-  {
-    id: 3,
-    name: 'Lớp học',
-    icon: <IconCalendar />,
-    href: '',
-    children: [],
-  },
-  {
-    id: 4,
-    name: 'Hội viên',
-    icon: <IconCard />,
-    href: '',
-    children: [
-      {
-        id: 4.1,
-        name: 'Quản lý trung tâm, cơ sở11111',
-        icon: null,
-        href: '',
-        children: [],
-      },
-      {
-        id: 4.2,
-        name: 'Quản lý nhân viên11111',
-        icon: null,
-        href: '',
-        children: [],
-      },
-    ],
-  },
-  {
-    id: 5,
-    name: 'Quản lý chung',
-    icon: <IconHome />,
-    children: [
-      {
-        id: 5.1,
-        name: 'Quản lý trung tâm, cơ sở',
-        icon: null,
-        href: '',
-        children: [],
-      },
-      {
-        id: 5.2,
-        name: 'Quản lý nhân viên',
-        icon: null,
-        href: '',
-        children: [],
-      },
-      {
-        id: 5.3,
-        name: 'Quản lý gói tập',
-        icon: null,
-        href: '',
-        children: [],
-      },
-      {
-        id: 5.4,
-        name: 'Thông báo hệ thống',
-        icon: null,
-        href: '',
-        children: [],
-      },
-    ],
-  },
-];
+import CustomMenu from 'components/Menu';
 
 const DefaultLayout = ({ children }: { children: React.ReactNode }) => {
   //! State
@@ -161,55 +81,7 @@ const DefaultLayout = ({ children }: { children: React.ReactNode }) => {
           >
             {t('shared:nameapp')}
           </Typography>
-          <PopupState variant='popover' popupId='demo-popup-menu'>
-            {(popupState: any) => {
-              console.log('popupState', popupState);
-
-              return (
-                <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-                  {pages.map((page) => (
-                    <React.Fragment key={page.id}>
-                      <Button
-                        key={page.id}
-                        sx={{
-                          my: 2,
-                          mr: 1,
-                          color: 'white',
-                          display: 'flex',
-                          alignItems: 'center',
-                          gap: 1,
-                        }}
-                        onMouseEnter={(e) => handleOpen(e, page.id)}
-                        onClick={(e) => handleOpen(e, page.id)}
-                        // {...bindTrigger({
-                        //   ...popupState,
-                        //   setAnchorEl: (e) => handleOpen(e, page.id),
-                        // })}
-                      >
-                        {page.icon}
-                        {page.name}
-                        {page.children.length > 0 && <IconArrowDown />}
-                      </Button>
-                      {page.children.length > 0 && (
-                        <Menu
-                          {...bindMenu({
-                            ...popupState,
-                            isOpen: Boolean(anchorEl[page.id]),
-                            anchorEl: anchorEl[page.id],
-                            close: () => setAnchorEl({}),
-                          })}
-                        >
-                          {page.children.map((child) => (
-                            <MenuItem key={child.id}>{child.name}</MenuItem>
-                          ))}
-                        </Menu>
-                      )}
-                    </React.Fragment>
-                  ))}
-                </Box>
-              );
-            }}
-          </PopupState>
+          <CustomMenu />
         </Toolbar>
         {/* </Container> */}
       </AppBar>
