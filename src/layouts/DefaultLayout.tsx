@@ -17,6 +17,7 @@ import useCheckWidth from 'hooks/useCheckWidth';
 import { useAuth } from 'providers/AuthenticationProvider';
 import { ImageLogo } from 'components/assets/images';
 import { useTranslation } from 'react-i18next';
+import CustomMenu from 'components/Menu';
 
 const drawerWidth = 90;
 
@@ -218,6 +219,7 @@ const DefaultLayout = ({ children }: { children: React.ReactNode }) => {
 
         <Divider /> */}
         {renderLogo()}
+        <CustomMenu />
 
         {/* {!auth.loading && renderBtnLogout()} */}
       </Drawer>
