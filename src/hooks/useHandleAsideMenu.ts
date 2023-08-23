@@ -59,13 +59,46 @@ const useHandleAsideMenu = () => {
     ];
 
     const navbarUser = [
-      [
-        {
-          label: t('shared:homepage'),
-          icon: CommonIcons.HomeIcon,
-          href: BaseUrl.Homepage,
-        },
-      ],
+      {
+        label: t('shared:homepage'),
+        icon: CommonIcons.HomeIcon,
+        href: BaseUrl.Homepage,
+        key: '1',
+        children: [
+          {
+            label: 'Apps',
+            icon: CommonIcons.CloudIcon,
+            href: BaseUrl.AppManagement,
+            children: [
+              {
+                label: 'Apps1111',
+                icon: CommonIcons.CloudIcon,
+                href: BaseUrl.AppManagement,
+              },
+            ],
+          },
+        ],
+      },
+      {
+        label: 'Apps',
+        icon: CommonIcons.CloudIcon,
+        href: BaseUrl.AppManagement,
+        children: [
+          {
+            label: 'Apps1111',
+            icon: CommonIcons.CloudIcon,
+            href: BaseUrl.AppManagement,
+          },
+        ],
+        key: '2',
+      },
+      {
+        label: 'Settings',
+        icon: CommonIcons.SettingsIcon,
+        href: BaseUrl.Settings,
+        children: [],
+        key: '3',
+      },
     ];
 
     if (isAdmin) {

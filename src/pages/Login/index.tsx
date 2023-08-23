@@ -1,7 +1,13 @@
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import { IconButton, InputAdornment, useTheme } from '@mui/material';
-import { IconFlagEngland, IconFlagKorea, IconFlagVN } from 'components/assets/icons';
+import {
+  IconEye,
+  IconEyeHide,
+  IconFlagEngland,
+  IconFlagKorea,
+  IconFlagVN,
+} from 'components/assets/icons';
 import { ImageLogo } from 'components/assets/images';
 import CommonStyles from 'components/CommonStyles';
 import TextField from 'components/CustomFields/TextField';
@@ -157,7 +163,7 @@ const Login = () => {
                       endAdornment: (
                         <InputAdornment position='end'>
                           <IconButton onClick={handleShowPassword}>
-                            {showPassword ? <VisibilityOff /> : <Visibility />}
+                            {showPassword ? <IconEyeHide /> : <IconEye />}
                           </IconButton>
                         </InputAdornment>
                       ),
@@ -168,7 +174,13 @@ const Login = () => {
                   type='submit'
                   loading={isSubmitting}
                   fullWidth
-                  sx={{ background: '#8428E6', height: 40, borderRadius: '6px' }}
+                  sx={{
+                    background: theme?.colors?.secondary?.purple,
+                    height: 40,
+                    borderRadius: '10px',
+                    padding: '12px 24px',
+                    '&:hover': { backgroundColor: `${theme?.colors?.secondary?.purple}33` },
+                  }}
                 >
                   {t('shared:login')}
                 </CommonStyles.Button>
