@@ -3,7 +3,15 @@ import { useTheme } from '@mui/material/styles';
 import * as React from 'react';
 import { Suspense } from 'react';
 // import MuiAppBar, { AppBarProps as MuiAppBarProps } from '@mui/material/AppBar';
-import { AppBar, Button, Menu, MenuItem, Toolbar, Typography } from '@mui/material';
+import {
+  AppBar,
+  Button,
+  ClickAwayListener,
+  Menu,
+  MenuItem,
+  Toolbar,
+  Typography,
+} from '@mui/material';
 import CommonStyles from 'components/CommonStyles';
 import PopupState, { bindTrigger, bindMenu } from 'material-ui-popup-state';
 import {
@@ -48,7 +56,22 @@ const pages = [
     name: 'Hội viên',
     icon: <IconCard />,
     href: '',
-    children: [],
+    children: [
+      {
+        id: 4.1,
+        name: 'Quản lý trung tâm, cơ sở11111',
+        icon: null,
+        href: '',
+        children: [],
+      },
+      {
+        id: 4.2,
+        name: 'Quản lý nhân viên11111',
+        icon: null,
+        href: '',
+        children: [],
+      },
+    ],
   },
   {
     id: 5,
@@ -91,7 +114,7 @@ const DefaultLayout = ({ children }: { children: React.ReactNode }) => {
   //! State
   const auth = useAuth();
   const theme = useTheme();
-  const [open, setOpen] = React.useState(true);
+  const [anchorEl, setAnchorEl] = React.useState<any>({});
   const asideMenu = useHandleAsideMenu();
   const { isMobile } = useCheckWidth();
   const { t } = useTranslation();
@@ -107,7 +130,12 @@ const DefaultLayout = ({ children }: { children: React.ReactNode }) => {
       },
     };
   }, [theme]);
-
+  const handleOpen = (event: any, key: any) => {
+    setAnchorEl({ ...anchorEl, [key]: event.currentTarget });
+  };
+  const handleClose = () => {
+    setAnchorEl({});
+  };
   //! Render
   return (
     <Box sx={{ display: 'flex' }}>
@@ -151,14 +179,26 @@ const DefaultLayout = ({ children }: { children: React.ReactNode }) => {
                           alignItems: 'center',
                           gap: 1,
                         }}
-                        {...bindTrigger(popupState)}
+                        onMouseEnter={(e) => handleOpen(e, page.id)}
+                        onClick={(e) => handleOpen(e, page.id)}
+                        // {...bindTrigger({
+                        //   ...popupState,
+                        //   setAnchorEl: (e) => handleOpen(e, page.id),
+                        // })}
                       >
                         {page.icon}
                         {page.name}
                         {page.children.length > 0 && <IconArrowDown />}
                       </Button>
                       {page.children.length > 0 && (
-                        <Menu {...bindMenu(popupState)}>
+                        <Menu
+                          {...bindMenu({
+                            ...popupState,
+                            isOpen: Boolean(anchorEl[page.id]),
+                            anchorEl: anchorEl[page.id],
+                            close: () => setAnchorEl({}),
+                          })}
+                        >
                           {page.children.map((child) => (
                             <MenuItem key={child.id}>{child.name}</MenuItem>
                           ))}
