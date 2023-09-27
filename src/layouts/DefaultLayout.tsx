@@ -18,6 +18,9 @@ import { useAuth } from 'providers/AuthenticationProvider';
 import { ImageLogo } from 'components/assets/images';
 import { useTranslation } from 'react-i18next';
 import CustomMenu from 'components/Menu';
+import Button from 'components/CustomButton';
+import { IconArrowDown, IconBell, IconBlankAvata } from 'components/assets/icons';
+import { Badge, Menu, MenuItem } from '@mui/material';
 
 const drawerWidth = 90;
 
@@ -129,44 +132,60 @@ const DefaultLayout = ({ children }: { children: React.ReactNode }) => {
   //   );
   // };
 
-  const renderBtnLogout = () => {
+  const renderBell = () => {
     return (
-      <List>
-        <ListItem disablePadding sx={{ display: 'block' }}>
-          <ListItemButton
-            onClick={() => {
-              auth.logout();
-            }}
-            sx={{
-              minHeight: 48,
-              justifyContent: open ? 'initial' : 'center',
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-            }}
-          >
-            <ListItemIcon
-              sx={{
-                minWidth: 0,
-                justifyContent: 'center',
-                color: theme.colors?.white,
-              }}
-            >
-              <CommonIcons.LogoutIcon />
-            </ListItemIcon>
-            <CommonStyles.Typography
-              sx={{
-                opacity: open ? 1 : 0,
-                fontSize: '0.825rem',
-                pt: 0.5,
-                color: theme.colors?.white,
-              }}
-            >
-              Logout
-            </CommonStyles.Typography>
-          </ListItemButton>
-        </ListItem>
-      </List>
+      <CommonStyles.Box
+        sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', mr: '20px' }}
+      >
+        <Button
+          isIconButton
+          sx={{
+            background: 'transparent',
+            height: '56px',
+            width: '56px',
+            borderRadius: '10px',
+            border: `1px solid ${theme?.colors?.white}`,
+            // '&:hover': { backgroundColor: `transparent33` },
+          }}
+        >
+          <Badge badgeContent={4} color='error' overlap='circular' invisible={false}>
+            <IconBell />
+          </Badge>
+        </Button>
+      </CommonStyles.Box>
+    );
+  };
+  const info = { name: 'Nguyễn Thị Anh', role: 'Quản lý trung tâm' };
+  const renderInfo = () => {
+    const [anchorEl, setAnchorEl] = React.useState<any>(null);
+    return (
+      <CommonStyles.Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+        <Button
+          startIcon={<IconBlankAvata />}
+          endIcon={<IconArrowDown />}
+          sx={{
+            background: 'transparent',
+            height: '56px',
+            // width: '56px',
+            borderRadius: '10px',
+            border: `1px solid ${theme?.colors?.white}`,
+            '&:hover': { backgroundColor: `transparent` },
+          }}
+          onClick={(e) => setAnchorEl(e.currentTarget)}
+        >
+          <CommonStyles.Box sx={{ textAlign: 'left' }}>
+            <CommonStyles.Box>{info.name}</CommonStyles.Box>
+            <CommonStyles.Box>{info.role}</CommonStyles.Box>
+          </CommonStyles.Box>
+        </Button>
+        <Menu open={Boolean(anchorEl)} anchorEl={anchorEl} onClose={() => setAnchorEl(null)}>
+          {/* {page.children.map((child) => ( */}
+          <MenuItem>Thông tin tài khoản</MenuItem>
+          <MenuItem>Đổi mật khẩu</MenuItem>
+          <MenuItem onClick={() => auth.logout()}>Đăng xuất</MenuItem>
+          {/* ))} */}
+        </Menu>
+      </CommonStyles.Box>
     );
   };
 
@@ -207,7 +226,7 @@ const DefaultLayout = ({ children }: { children: React.ReactNode }) => {
             backgroundColor: theme?.colors?.primary?.deepBlue,
             width: '100% !important',
             height: '90px !important',
-            padding: '24px 16px',
+            padding: '0px 16px',
           },
         }}
       >
@@ -220,6 +239,8 @@ const DefaultLayout = ({ children }: { children: React.ReactNode }) => {
         <Divider /> */}
         {renderLogo()}
         <CustomMenu />
+        {renderBell()}
+        {renderInfo()}
 
         {/* {!auth.loading && renderBtnLogout()} */}
       </Drawer>
