@@ -11,3 +11,4 @@ export { default as IconHome } from './ic_home';
 export { default as IconArrowUp } from './ic_arrow_up';
 export { default as IconArrowDown } from './ic_arrow_down';
 export { default as IconBell } from './ic_bell';
+export { default as IconBlankAvata } from './ic_blank_avatar';
