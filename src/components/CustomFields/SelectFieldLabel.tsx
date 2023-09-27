@@ -60,6 +60,13 @@ const SelectFieldLabel = ({
           sx={{
             borderRadius: '10px',
             '& div': {},
+            '& input': {
+              opacity: value ? 0 : 1,
+              height: '100%',
+              border: 'none',
+              px: 2,
+              fontSize: 14,
+            },
           }}
         >
           {options.map((el) => {

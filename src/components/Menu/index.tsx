@@ -16,6 +16,9 @@ import { useAuth } from 'providers/AuthenticationProvider';
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
 import { popoverClasses } from '@mui/material/Popover';
+import BaseUrl from 'consts/baseUrl';
+import { useNavigate } from 'react-router-dom';
+import { isEmpty } from 'lodash';
 
 const menuFake = [
   {
@@ -63,14 +66,14 @@ const menuFake = [
         id: 5.1,
         name: 'Quản lý trung tâm, cơ sở',
         icon: null,
-        href: '',
+        href: BaseUrl.FacilityManagement,
         children: [],
       },
       {
         id: 5.2,
         name: 'Quản lý nhân viên',
         icon: null,
-        href: '',
+        href: BaseUrl.StaffManagement,
         children: [],
       },
       {
@@ -99,6 +102,7 @@ const CustomMenu = () => {
   const asideMenu = useHandleAsideMenu();
   const { isMobile } = useCheckWidth();
   const { t } = useTranslation();
+  const navigate = useNavigate();
 
   //! Function
   const handleOpen = (event: any, key: any) => {
@@ -126,7 +130,7 @@ const CustomMenu = () => {
                     gap: 1,
                   }}
                   onMouseEnter={(e) => handleOpen(e, page.id)}
-                  onClick={(e) => handleOpen(e, page.id)}
+                  onClick={(e) => isEmpty(anchorEl) && handleOpen(e, page.id)}
                   onMouseLeave={handleClose}
                 >
                   {page.icon}
@@ -156,7 +160,17 @@ const CustomMenu = () => {
                       keepMounted={false}
                     >
                       {page.children.map((child) => (
-                        <MenuItem key={child.id}>{child.name}</MenuItem>
+                        <MenuItem
+                          key={child.id}
+                          onClick={() => {
+                            if (child.href) {
+                              handleClose();
+                              navigate(child.href);
+                            }
+                          }}
+                        >
+                          {child.name}
+                        </MenuItem>
                       ))}
                     </Menu>
                   )}

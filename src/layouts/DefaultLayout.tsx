@@ -11,7 +11,7 @@ import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import CommonStyles from 'components/CommonStyles';
 import CommonIcons from 'components/CommonIcons';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import useHandleAsideMenu from 'hooks/useHandleAsideMenu';
 import useCheckWidth from 'hooks/useCheckWidth';
 import { useAuth } from 'providers/AuthenticationProvider';
@@ -21,6 +21,9 @@ import CustomMenu from 'components/Menu';
 import Button from 'components/CustomButton';
 import { IconArrowDown, IconBell, IconBlankAvata } from 'components/assets/icons';
 import { Badge, Menu, MenuItem } from '@mui/material';
+import ModalChangePass from 'components/Modal/ModalChangePass';
+import ModalConfirm from 'components/Modal/ModalConfirm';
+import BaseUrl from 'consts/baseUrl';
 
 const drawerWidth = 90;
 
@@ -105,6 +108,8 @@ const DefaultLayout = ({ children }: { children: React.ReactNode }) => {
   const asideMenu = useHandleAsideMenu();
   const { isMobile } = useCheckWidth();
 
+  const navigate = useNavigate();
+
   //! Function
   // const handleDrawerOpen = () => {
   //   setOpen(true);
@@ -158,6 +163,17 @@ const DefaultLayout = ({ children }: { children: React.ReactNode }) => {
   const info = { name: 'Nguyễn Thị Anh', role: 'Quản lý trung tâm' };
   const renderInfo = () => {
     const [anchorEl, setAnchorEl] = React.useState<any>(null);
+    const [openModalChangePass, setOpenModalChangePass] = React.useState(false);
+    const [openModalLogout, setOpenModalLogout] = React.useState(false);
+
+    const handleOpenChangePass = () => {
+      setOpenModalChangePass(true);
+      setAnchorEl(null);
+    };
+    const handleOpenLogout = () => {
+      setOpenModalLogout(true);
+      setAnchorEl(null);
+    };
     return (
       <CommonStyles.Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
         <Button
@@ -180,11 +196,28 @@ const DefaultLayout = ({ children }: { children: React.ReactNode }) => {
         </Button>
         <Menu open={Boolean(anchorEl)} anchorEl={anchorEl} onClose={() => setAnchorEl(null)}>
           {/* {page.children.map((child) => ( */}
-          <MenuItem>Thông tin tài khoản</MenuItem>
-          <MenuItem>Đổi mật khẩu</MenuItem>
-          <MenuItem onClick={() => auth.logout()}>Đăng xuất</MenuItem>
+          <MenuItem onClick={() => navigate(BaseUrl.AccountInformation)}>
+            Thông tin tài khoản
+          </MenuItem>
+          <MenuItem onClick={handleOpenChangePass}>Đổi mật khẩu</MenuItem>
+          <MenuItem onClick={handleOpenLogout}>Đăng xuất</MenuItem>
           {/* ))} */}
         </Menu>
+        {openModalChangePass && (
+          <ModalChangePass
+            open={openModalChangePass}
+            onClose={() => setOpenModalChangePass(false)}
+          />
+        )}
+        {openModalLogout && (
+          <ModalConfirm
+            open={openModalLogout}
+            modalTitle='Bạn có chắc chắn muốn đăng xuất tài khoản'
+            onClose={() => setOpenModalLogout(false)}
+            onSubmit={auth.logout}
+            // maxWidth='xs'
+          />
+        )}
       </CommonStyles.Box>
     );
   };
@@ -245,7 +278,11 @@ const DefaultLayout = ({ children }: { children: React.ReactNode }) => {
         {/* {!auth.loading && renderBtnLogout()} */}
       </Drawer>
 
-      <Box component='main' sx={{ flexGrow: 1, p: 3, mt: 10 }}>
+      <Box
+        component='main'
+        sx={{ flexGrow: 1, p: 3, mt: 10 }}
+        // sx={{ flexGrow: 1, p: 3, mt: 10, background: theme.colors?.background?.background5 }}
+      >
         {/* <DrawerHeader /> */}
         <Suspense fallback={<CommonStyles.Loading />}>{children}</Suspense>
       </Box>
