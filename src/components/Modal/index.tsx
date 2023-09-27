@@ -3,6 +3,8 @@ import Dialog from '@mui/material/Dialog';
 import Typography from '@mui/material/Typography';
 import CommonStyles from 'components/CommonStyles';
 import Button from 'components/CustomButton';
+import ButtonCancel from 'components/CustomButton/ButtonCancel';
+import ButtonSave from 'components/CustomButton/ButtonSave';
 
 interface Props {
   open: boolean;
@@ -22,14 +24,10 @@ const Modal = (props: Props) => {
         <Typography sx={{ fontSize: '32px', fontWeight: 700, lineHeight: '48px' }}>
           {modalTitle}
         </Typography>
-        <DialogContent sx={{ pt: 1, pb: 0 }}>{children}</DialogContent>
+        <DialogContent sx={{ p: 1 }}>{children}</DialogContent>
         <DialogActions>
-          <Button color='secondary' onClick={onClose}>
-            Huỷ bỏ
-          </Button>
-          <Button color='success' onClick={onSubmit}>
-            Lưu lại
-          </Button>
+          <ButtonCancel handleClick={onClose} />
+          <ButtonSave handleClick={onSubmit} />
         </DialogActions>
       </CommonStyles.Box>
     </Dialog>

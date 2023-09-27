@@ -3,6 +3,7 @@ import { createTheme } from '@mui/material/styles';
 declare module '@mui/material/styles' {
   interface Theme {
     colors?: {
+      line?: string;
       primary?: any;
       secondary?: {
         yellow?: string;
@@ -57,6 +58,7 @@ declare module '@mui/material/styles' {
   }
   interface ThemeOptions {
     colors?: {
+      line?: string;
       primary?: any;
       secondary?: {
         yellow?: string;
@@ -124,6 +126,7 @@ const lightTheme = createTheme({
     },
   },
   colors: {
+    line: '#D6DEE5',
     primary: {
       deepBlue: '#1E3150',
     },
@@ -200,7 +203,7 @@ const darkTheme = createTheme({
     },
     textColor: {
       text1: '#111111',
-      text2: '#535454',
+      text2: '#5F7D95',
       text3: '#C4C4C4',
     },
     placeHolder: '#CACAC9',
