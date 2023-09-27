@@ -11,11 +11,7 @@ const Button = ({ isIconButton, ...props }: Props) => {
     return <MuiIconButton {...props}>{props.children}</MuiIconButton>;
   }
 
-  return (
-    <LoadingButton variant='contained' {...props}>
-      {props.children}
-    </LoadingButton>
-  );
+  return <LoadingButton {...props}>{props.children}</LoadingButton>;
 };
 
 export default Button;
