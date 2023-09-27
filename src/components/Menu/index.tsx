@@ -111,8 +111,6 @@ const CustomMenu = () => {
   return (
     <PopupState variant='popover' popupId='demo-popup-menu'>
       {(popupState: any) => {
-        console.log('popupState', popupState);
-
         return (
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
             {menuFake.map((page) => (

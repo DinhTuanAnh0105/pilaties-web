@@ -10,7 +10,8 @@ import {
 } from 'components/assets/icons';
 import { ImageLogo } from 'components/assets/images';
 import CommonStyles from 'components/CommonStyles';
-import TextField from 'components/CustomFields/TextField';
+import TextFieldLabel from 'components/CustomFields/TextFieldLabel';
+import TextField from 'components/CustomFields/TextFieldLabel';
 import BaseUrl from 'consts/baseUrl';
 import { Field, Form, Formik } from 'formik';
 import { showError } from 'helpers/toast';
@@ -144,7 +145,7 @@ const Login = () => {
                   }}
                 >
                   <Field
-                    component={TextField}
+                    component={TextFieldLabel}
                     name='username'
                     fullWidth
                     label='Tên đăng nhập'
@@ -152,7 +153,7 @@ const Login = () => {
                     placeholder='Nhập số điện thoại'
                   />
                   <Field
-                    component={TextField}
+                    component={TextFieldLabel}
                     name='password'
                     label='Mật khẩu'
                     type={showPassword ? 'text' : 'password'}

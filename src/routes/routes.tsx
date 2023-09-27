@@ -7,6 +7,9 @@ import { PERMISSION_ENUM } from 'consts/index';
 const DefaultLayout = lazy(() => import('layouts/DefaultLayout'));
 const Login = lazy(() => import('pages/Login'));
 const Homepage = lazy(() => import('pages/Homepage'));
+
+const PageStaffManagement = lazy(() => import('pages/GeneralManagement/StaffManagement'));
+
 interface Route {
   name: string;
   path: string;
@@ -48,6 +51,19 @@ const routes: Route[] = [
         name: 'Homepage',
         path: BaseUrl.Homepage,
         component: withCheckRole(Homepage, [PERMISSION_ENUM.PUBLIC]),
+      },
+    ],
+  },
+  {
+    name: 'General Management',
+    path: BaseUrl.GeneralManagement,
+    layout: DefaultLayout,
+    isPrivateRoute: true,
+    routeChild: [
+      {
+        name: 'Staff Management',
+        path: BaseUrl.StaffManagement,
+        component: withCheckRole(PageStaffManagement, [PERMISSION_ENUM.PUBLIC]),
       },
     ],
   },

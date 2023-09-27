@@ -13,9 +13,17 @@ interface SelectFieldProps extends SelectProps {
   field: FieldInputProps<any>;
   form: FormikProps<any>;
   options: SelectOption[];
+  required?: boolean;
 }
 
-const SelectField = ({ field, form, options, label, ...props }: SelectFieldProps) => {
+const SelectFieldLabel = ({
+  field,
+  form,
+  options,
+  label,
+  required,
+  ...props
+}: SelectFieldProps) => {
   const { name, value, onBlur, onChange } = field || {};
   const { errors, touched } = form || {};
 
@@ -23,19 +31,31 @@ const SelectField = ({ field, form, options, label, ...props }: SelectFieldProps
 
   return (
     <CommonStyles.Box sx={{ minWidth: 120 }}>
+      <CommonStyles.Typography
+        sx={{
+          fontSize: 14,
+          fontWeight: 400,
+          lineHeight: '18px',
+          color: '#111111',
+          mb: 0.5,
+        }}
+      >
+        {required && (
+          <CommonStyles.Box component='span' sx={{ color: 'red', mr: 0.5 }}>
+            *
+          </CommonStyles.Box>
+        )}
+        {label}
+      </CommonStyles.Typography>
       <FormControl fullWidth={props.fullWidth} error={!!msgError}>
-        <InputLabel size='small' id={`${name}`}>
-          {label}
-        </InputLabel>
         <Select
           id={`${name}`}
-          label={label}
           labelId={`${name}`}
           value={value}
           name={name}
           onChange={onChange}
           onBlur={onBlur}
-          input={<OutlinedInput label={label} size='small' />}
+          input={<OutlinedInput size='small' />}
           {...props}
           sx={{
             borderRadius: '10px',
@@ -56,4 +76,4 @@ const SelectField = ({ field, form, options, label, ...props }: SelectFieldProps
   );
 };
 
-export default SelectField;
+export default SelectFieldLabel;

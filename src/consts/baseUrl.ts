@@ -12,6 +12,10 @@ const BaseUrl = {
   Users: '/users',
   Settings: '/settings',
   AppConnect: '/app-connect',
+
+  //! general management
+  GeneralManagement: '/general-management',
+  StaffManagement: '/general-management/staff-management',
 };
 
 export default BaseUrl;

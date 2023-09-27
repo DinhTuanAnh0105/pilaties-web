@@ -1,0 +1,22 @@
+import React from 'react';
+
+const icon = () => {
+  return (
+    <svg width='33' height='33' viewBox='0 0 33 33' fill='none' xmlns='http://www.w3.org/2000/svg'>
+      <rect x='0.785767' y='0.5' width='32' height='32' rx='5' fill='#00A3FF' />
+      <g clipPath='url(#clip0_190_122964)'>
+        <path
+          d='M7.78577 20.7486V24.4986H11.5358L22.5958 13.4386L18.8458 9.68859L7.78577 20.7486ZM25.4958 10.5386C25.8858 10.1486 25.8858 9.51859 25.4958 9.12859L23.1558 6.78859C22.7658 6.39859 22.1358 6.39859 21.7458 6.78859L19.9158 8.61859L23.6658 12.3686L25.4958 10.5386Z'
+          fill='white'
+        />
+      </g>
+      <defs>
+        <clipPath id='clip0_190_122964'>
+          <rect width='24' height='24' fill='white' transform='translate(4.78577 3.5)' />
+        </clipPath>
+      </defs>
+    </svg>
+  );
+};
+
+export default icon;
