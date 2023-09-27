@@ -1,8 +1,8 @@
+import { IconAddImage } from 'components/assets/icons';
 import CommonStyles from 'components/CommonStyles';
 import SelectFieldLabel from 'components/CustomFields/SelectFieldLabel';
 import TextFieldLabel from 'components/CustomFields/TextFieldLabel';
 import Modal from 'components/Modal';
-import { IconAddImage } from 'components/assets/icons';
 import { Field, Form, Formik } from 'formik';
 import { useState } from 'react';
 import { handleReadImage } from 'utils/handleReadImage';
@@ -24,7 +24,6 @@ const ModalCreateStaff = ({ open, onClose }: { open: boolean; onClose: () => voi
       modalTitle='Thêm mới nhân viên'
       onClose={() => onClose()}
       onSubmit={() => {}}
-      // maxWidth='md'
     >
       <Formik onSubmit={() => {}} initialValues={{}}>
         {(props) => {

@@ -9,6 +9,14 @@ const Login = lazy(() => import('pages/Login'));
 const Homepage = lazy(() => import('pages/Homepage'));
 
 const PageStaffManagement = lazy(() => import('pages/GeneralManagement/StaffManagement'));
+const PageFacilityManagement = lazy(() => import('pages/GeneralManagement/FacilityManagement'));
+const CreateTrungTam = lazy(
+  () => import('pages/GeneralManagement/FacilityManagement/CreateTrungTam')
+);
+const DetailTrungTam = lazy(
+  () => import('pages/GeneralManagement/FacilityManagement/DetailTrungTam')
+);
+const AccountInfo = lazy(() => import('pages/AccountInfo'));
 
 interface Route {
   name: string;
@@ -64,6 +72,34 @@ const routes: Route[] = [
         name: 'Staff Management',
         path: BaseUrl.StaffManagement,
         component: withCheckRole(PageStaffManagement, [PERMISSION_ENUM.PUBLIC]),
+      },
+      {
+        name: 'Facility Management',
+        path: BaseUrl.FacilityManagement,
+        component: withCheckRole(PageFacilityManagement, [PERMISSION_ENUM.PUBLIC]),
+      },
+      {
+        name: 'Create Facility Management',
+        path: BaseUrl.CreateFacilityManagement,
+        component: withCheckRole(CreateTrungTam, [PERMISSION_ENUM.PUBLIC]),
+      },
+      {
+        name: 'Detail Facility Management',
+        path: BaseUrl.DetailFacilityManagement,
+        component: withCheckRole(DetailTrungTam, [PERMISSION_ENUM.PUBLIC]),
+      },
+    ],
+  },
+  {
+    name: 'Account Information',
+    path: '',
+    layout: DefaultLayout,
+    isPrivateRoute: true,
+    routeChild: [
+      {
+        name: 'Account Information',
+        path: BaseUrl.AccountInformation,
+        component: withCheckRole(AccountInfo, [PERMISSION_ENUM.PUBLIC]),
       },
     ],
   },
