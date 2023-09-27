@@ -27,3 +27,8 @@ export const PermissionOptions = Object.entries(PERMISSION_ENUM)
 
 export const NUMBER_DEFAULT_ROW_PER_PAGE = 5;
 export const NUMBER_DEFAULT_PAGE = 0;
+
+export const DEFAULT_PARAMSPAGE = {
+  page: 0,
+  size: 10,
+};
