@@ -14,3 +14,4 @@ export { default as IconBell } from './ic_bell';
 export { default as IconEdit } from './ic_edit';
 export { default as IconSearch } from './ic_search';
 export { default as IconAddImage } from './ic_add_image';
+export { default as IconBlankAvata } from './ic_blank_avatar';

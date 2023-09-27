@@ -15,6 +15,7 @@ import PopupState, { bindMenu } from 'material-ui-popup-state';
 import { useAuth } from 'providers/AuthenticationProvider';
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
+import { popoverClasses } from '@mui/material/Popover';
 
 const menuFake = [
   {
@@ -43,7 +44,15 @@ const menuFake = [
     name: 'Hội viên',
     icon: <IconCard />,
     href: '',
-    children: [],
+    children: [
+      {
+        id: 5.1,
+        name: 'Quản lý',
+        icon: null,
+        href: '',
+        children: [],
+      },
+    ],
   },
   {
     id: 5,
@@ -118,29 +127,40 @@ const CustomMenu = () => {
                   }}
                   onMouseEnter={(e) => handleOpen(e, page.id)}
                   onClick={(e) => handleOpen(e, page.id)}
-                  // {...bindTrigger({
-                  //   ...popupState,
-                  //   setAnchorEl: (e) => handleOpen(e, page.id),
-                  // })}
+                  onMouseLeave={handleClose}
                 >
                   {page.icon}
                   {page.name}
                   {page.children.length > 0 && <IconArrowDown />}
+                  {page.children.length > 0 && (
+                    <Menu
+                      {...bindMenu({
+                        ...popupState,
+                        isOpen: Boolean(anchorEl[page.id]),
+                        anchorEl: anchorEl[page.id],
+                        close: handleClose,
+                      })}
+                      sx={{
+                        [`&.${popoverClasses.root}`]: {
+                          pointerEvents: 'none',
+                        },
+                      }}
+                      onClose={handleClose}
+                      MenuListProps={{
+                        onMouseLeave: handleClose,
+                        style: { pointerEvents: 'auto' },
+                      }}
+                      anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+                      transformOrigin={{ vertical: 'top', horizontal: 'center' }}
+                      disableAutoFocusItem
+                      keepMounted={false}
+                    >
+                      {page.children.map((child) => (
+                        <MenuItem key={child.id}>{child.name}</MenuItem>
+                      ))}
+                    </Menu>
+                  )}
                 </Button>
-                {page.children.length > 0 && (
-                  <Menu
-                    {...bindMenu({
-                      ...popupState,
-                      isOpen: Boolean(anchorEl[page.id]),
-                      anchorEl: anchorEl[page.id],
-                      close: () => setAnchorEl({}),
-                    })}
-                  >
-                    {page.children.map((child) => (
-                      <MenuItem key={child.id}>{child.name}</MenuItem>
-                    ))}
-                  </Menu>
-                )}
               </React.Fragment>
             ))}
           </Box>
