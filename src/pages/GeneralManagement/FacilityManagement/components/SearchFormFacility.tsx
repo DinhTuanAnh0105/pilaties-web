@@ -5,12 +5,11 @@ import ButtonReload from 'components/CustomButton/ButtonReload';
 import ButtonSearch from 'components/CustomButton/ButtonSearch';
 import SelectField from 'components/CustomFields/SelectField';
 import TextField from 'components/CustomFields/TextField';
-import BaseUrl from 'consts/baseUrl';
 import { Field, Form, Formik } from 'formik';
 import { Fragment, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import * as Yup from 'yup';
-import ModalCreateStaff from './ModalCreate';
+import ModalCreateFacility from './ModalCreateFacility';
 
 const validationSearchForm = Yup.object().shape({
   name: Yup.string().required('Tên  là trường bắt buộc'),
@@ -89,17 +88,17 @@ const SearchFormFacility = () => {
                     options={[]}
                   />
                 </Grid>
-                <Grid item lg={4} sx={{ display: 'flex', gap: '8px' }}>
+                <Grid item xs={12} lg={4} sx={{ display: 'flex', gap: 1, justifyContent: 'end' }}>
                   <ButtonSearch handleClick={() => {}} />
                   <ButtonReload handleClick={() => {}} />
-                  <ButtonCreate handleClick={() => navigate(BaseUrl.CreateFacilityManagement)} />
+                  <ButtonCreate handleClick={() => setOpenModal(true)} />
                 </Grid>
               </Grid>
             </Form>
           );
         }}
       </Formik>
-      {openModal && <ModalCreateStaff open={openModal} onClose={() => setOpenModal(false)} />}
+      {openModal && <ModalCreateFacility open={openModal} onClose={() => setOpenModal(false)} />}
     </Fragment>
   );
 };

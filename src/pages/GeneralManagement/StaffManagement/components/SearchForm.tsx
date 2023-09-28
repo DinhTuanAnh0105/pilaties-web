@@ -1,28 +1,15 @@
 import { Grid } from '@mui/material';
-import { useTheme } from '@mui/material/styles';
-import Button from 'components/CustomButton';
+import ButtonCreate from 'components/CustomButton/ButtonCreate';
+import ButtonReload from 'components/CustomButton/ButtonReload';
+import ButtonSearch from 'components/CustomButton/ButtonSearch';
 import SelectField from 'components/CustomFields/SelectField';
 import TextField from 'components/CustomFields/TextField';
 import { Field, Form, Formik } from 'formik';
 import { Fragment, useState } from 'react';
-import * as Yup from 'yup';
 import ModalCreateStaff from './ModalCreate';
-import CommonStyles from 'components/CommonStyles';
-import ButtonSearch from 'components/CustomButton/ButtonSearch';
-import ButtonReload from 'components/CustomButton/ButtonReload';
-import ButtonCreate from 'components/CustomButton/ButtonCreate';
-
-const validationSearchForm = Yup.object().shape({
-  name: Yup.string().required('Tên  là trường bắt buộc'),
-});
-
-const initialValues = {
-  name: '',
-};
 
 const SearchForm = () => {
   //! define
-  const theme = useTheme();
 
   //! state
   const [openModal, setOpenModal] = useState<boolean>(false);
@@ -34,11 +21,7 @@ const SearchForm = () => {
   //! render
   return (
     <Fragment>
-      <Formik
-        onSubmit={(values) => console.log('values', values)}
-        initialValues={initialValues}
-        // validationSchema={validationSearchForm}
-      >
+      <Formik onSubmit={(values) => console.log('values', values)} initialValues={{}}>
         {(propsFormik: any) => {
           return (
             <Form>

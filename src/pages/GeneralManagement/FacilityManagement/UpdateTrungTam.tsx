@@ -69,7 +69,7 @@ const dataFake = [
   // },
 ];
 
-const CreateTrungTam = () => {
+const UpdateTrungTam = () => {
   //! define
 
   const theme = useTheme();
@@ -124,9 +124,9 @@ const CreateTrungTam = () => {
 
   //! render
   return (
-    <WrapperBlock title='Thêm mới trung tâm'>
-      <Grid container spacing={2}>
-        <Grid item md={4}>
+    <Grid container spacing={2}>
+      <Grid item md={4}>
+        <WrapperBlock title='Cập nhật trung tâm'>
           <Formik onSubmit={() => {}} initialValues={{}}>
             {({ setFieldValue }) => {
               return (
@@ -356,18 +356,20 @@ const CreateTrungTam = () => {
               );
             }}
           </Formik>
-        </Grid>
-        <Grid item md={8}>
-          <WrapperBlock>
-            <SearchFormFacility />
+        </WrapperBlock>
+      </Grid>
+      <Grid item md={8}>
+        <WrapperBlock title='Danh sách cơ sở' count={10}>
+          <SearchFormFacility />
+          <CommonStyles.Box>
             <TableWrapper rows={rows} headers={tableHeader} />
             <TablePaging count={100} paramsPage={paramsPage} setParamsPage={setParamsPage} />
-          </WrapperBlock>
-        </Grid>
-        {openModal && <ModalCreateFacility open={openModal} onClose={() => setOpenModal(false)} />}
+          </CommonStyles.Box>
+        </WrapperBlock>
       </Grid>
-    </WrapperBlock>
+      {openModal && <ModalCreateFacility open={openModal} onClose={() => setOpenModal(false)} />}
+    </Grid>
   );
 };
 
-export default CreateTrungTam;
+export default UpdateTrungTam;

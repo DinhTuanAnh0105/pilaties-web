@@ -1,19 +1,12 @@
 import { Grid } from '@mui/material';
-import { useTheme } from '@mui/material/styles';
 import ButtonCreate from 'components/CustomButton/ButtonCreate';
+import ButtonExport from 'components/CustomButton/ButtonExport';
 import ButtonReload from 'components/CustomButton/ButtonReload';
 import ButtonSearch from 'components/CustomButton/ButtonSearch';
 import SelectField from 'components/CustomFields/SelectField';
 import TextField from 'components/CustomFields/TextField';
-import BaseUrl from 'consts/baseUrl';
 import { Field, Form, Formik } from 'formik';
 import { Fragment } from 'react';
-import { useNavigate } from 'react-router-dom';
-import * as Yup from 'yup';
-
-const validationSearchForm = Yup.object().shape({
-  name: Yup.string().required('Tên  là trường bắt buộc'),
-});
 
 const initialValues = {
   name: '',
@@ -21,8 +14,6 @@ const initialValues = {
 
 const SearchForm = () => {
   //! define
-  const theme = useTheme();
-  const navigate = useNavigate();
 
   //! state
 
@@ -33,11 +24,7 @@ const SearchForm = () => {
   //! render
   return (
     <Fragment>
-      <Formik
-        onSubmit={(values) => console.log('values', values)}
-        initialValues={initialValues}
-        // validationSchema={validationSearchForm}
-      >
+      <Formik onSubmit={(values) => console.log('values', values)} initialValues={initialValues}>
         {(propsFormik: any) => {
           return (
             <Form>
@@ -47,7 +34,7 @@ const SearchForm = () => {
                     component={TextField}
                     fullWidth
                     name='name'
-                    label='Tên trung tâm'
+                    label='Tên hoặc mã nhân viên'
                     // required
                   />
                 </Grid>
@@ -56,15 +43,11 @@ const SearchForm = () => {
                     component={SelectField}
                     fullWidth
                     name='location'
-                    label='Người quản lý'
+                    label='Trung tâm'
                     options={[
                       {
-                        label: 'Người quản lý 1',
+                        label: 'Trung tâm cầu giấy',
                         value: 1,
-                      },
-                      {
-                        label: 'Người quản lý 2',
-                        value: 2,
                       },
                     ]}
                   />
@@ -74,7 +57,7 @@ const SearchForm = () => {
                     component={SelectField}
                     fullWidth
                     name='location'
-                    label='Tỉnh thành'
+                    label='Cơ sở'
                     options={[]}
                   />
                 </Grid>
@@ -83,14 +66,14 @@ const SearchForm = () => {
                     component={SelectField}
                     fullWidth
                     name='location'
-                    label='Quận huyện'
+                    label='Chức vụ'
                     options={[]}
                   />
                 </Grid>
                 <Grid item lg={4} sx={{ display: 'flex', gap: '8px' }}>
                   <ButtonSearch handleClick={() => {}} />
                   <ButtonReload handleClick={() => {}} />
-                  <ButtonCreate handleClick={() => navigate(BaseUrl.CreateFacilityManagement)} />
+                  <ButtonExport handleClick={() => {}} />
                 </Grid>
               </Grid>
             </Form>

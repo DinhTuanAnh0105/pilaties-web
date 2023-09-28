@@ -1,30 +1,17 @@
-import { Grid } from '@mui/material';
-import { useTheme } from '@mui/material/styles';
+import { DialogActions, Grid } from '@mui/material';
 import ButtonCreate from 'components/CustomButton/ButtonCreate';
 import ButtonReload from 'components/CustomButton/ButtonReload';
 import ButtonSearch from 'components/CustomButton/ButtonSearch';
 import SelectField from 'components/CustomFields/SelectField';
 import TextField from 'components/CustomFields/TextField';
-import BaseUrl from 'consts/baseUrl';
 import { Field, Form, Formik } from 'formik';
-import { Fragment } from 'react';
-import { useNavigate } from 'react-router-dom';
-import * as Yup from 'yup';
-
-const validationSearchForm = Yup.object().shape({
-  name: Yup.string().required('Tên  là trường bắt buộc'),
-});
-
-const initialValues = {
-  name: '',
-};
+import { Fragment, useState } from 'react';
 
 const SearchForm = () => {
-  //! define
-  const theme = useTheme();
-  const navigate = useNavigate();
+  //! define∏
 
   //! state
+  const [openModal, setOpenModal] = useState<boolean>(false);
 
   //! function
 
@@ -33,38 +20,27 @@ const SearchForm = () => {
   //! render
   return (
     <Fragment>
-      <Formik
-        onSubmit={(values) => console.log('values', values)}
-        initialValues={initialValues}
-        // validationSchema={validationSearchForm}
-      >
+      <Formik onSubmit={(values) => console.log('values', values)} initialValues={{}}>
         {(propsFormik: any) => {
           return (
             <Form>
               <Grid container spacing={2}>
                 <Grid item xs={12} md={6} lg={2}>
-                  <Field
-                    component={TextField}
-                    fullWidth
-                    name='name'
-                    label='Tên trung tâm'
-                    // required
-                  />
+                  <Field component={TextField} fullWidth name='name' label='Tên hoặc mã hội viên' />
+                </Grid>
+                <Grid item xs={12} md={6} lg={2}>
+                  <Field component={TextField} fullWidth name='phoneNumber' label='Số điện thoại' />
                 </Grid>
                 <Grid item xs={12} md={6} lg={2}>
                   <Field
                     component={SelectField}
                     fullWidth
                     name='location'
-                    label='Người quản lý'
+                    label='Trung tâm'
                     options={[
                       {
-                        label: 'Người quản lý 1',
+                        label: 'Trung tâm cầu giấy',
                         value: 1,
-                      },
-                      {
-                        label: 'Người quản lý 2',
-                        value: 2,
                       },
                     ]}
                   />
@@ -74,23 +50,20 @@ const SearchForm = () => {
                     component={SelectField}
                     fullWidth
                     name='location'
-                    label='Tỉnh thành'
+                    label='Cơ sở'
                     options={[]}
                   />
                 </Grid>
                 <Grid item xs={12} md={6} lg={2}>
-                  <Field
-                    component={SelectField}
-                    fullWidth
-                    name='location'
-                    label='Quận huyện'
-                    options={[]}
-                  />
+                  <Field component={TextField} fullWidth name='remain' label='Số buổi còn lại' />
+                </Grid>
+                <Grid item xs={12} md={6} lg={2}>
+                  <Field component={TextField} fullWidth name='recent' label='Hoạt động gần nhất' />
                 </Grid>
                 <Grid item lg={4} sx={{ display: 'flex', gap: '8px' }}>
                   <ButtonSearch handleClick={() => {}} />
                   <ButtonReload handleClick={() => {}} />
-                  <ButtonCreate handleClick={() => navigate(BaseUrl.CreateFacilityManagement)} />
+                  <ButtonCreate handleClick={() => setOpenModal(true)} />
                 </Grid>
               </Grid>
             </Form>
