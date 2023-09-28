@@ -1,7 +1,7 @@
-import React, { Fragment, lazy } from 'react';
 import BaseUrl from 'consts/baseUrl';
-import withCheckRole from 'HOCs/withCheckRole';
 import { PERMISSION_ENUM } from 'consts/index';
+import withCheckRole from 'HOCs/withCheckRole';
+import React, { Fragment, lazy } from 'react';
 
 // Bash importHere
 const DefaultLayout = lazy(() => import('layouts/DefaultLayout'));
@@ -13,8 +13,14 @@ const PageFacilityManagement = lazy(() => import('pages/GeneralManagement/Facili
 const CreateTrungTam = lazy(
   () => import('pages/GeneralManagement/FacilityManagement/CreateTrungTam')
 );
+const UpdateTrungTam = lazy(
+  () => import('pages/GeneralManagement/FacilityManagement/UpdateTrungTam')
+);
 const DetailTrungTam = lazy(
   () => import('pages/GeneralManagement/FacilityManagement/DetailTrungTam')
+);
+const DetailFacility = lazy(
+  () => import('pages/GeneralManagement/FacilityManagement/DetailFacility')
 );
 const TypeExercise = lazy(() => import('pages/GeneralManagement/TypeExercise/index'));
 const DetailTypeExercise = lazy(() => import('pages/GeneralManagement/TypeExercise/detail'));
@@ -91,9 +97,19 @@ const routes: Route[] = [
         component: withCheckRole(CreateTrungTam, [PERMISSION_ENUM.PUBLIC]),
       },
       {
+        name: 'Update Facility Management',
+        path: BaseUrl.UpdateFacilityManagement,
+        component: withCheckRole(UpdateTrungTam, [PERMISSION_ENUM.PUBLIC]),
+      },
+      {
         name: 'Detail Facility Management',
         path: BaseUrl.DetailFacilityManagement,
         component: withCheckRole(DetailTrungTam, [PERMISSION_ENUM.PUBLIC]),
+      },
+      {
+        name: 'Detail Facility',
+        path: BaseUrl.DetailFacility,
+        component: withCheckRole(DetailFacility, [PERMISSION_ENUM.PUBLIC]),
       },
       {
         name: 'Type of exercise',

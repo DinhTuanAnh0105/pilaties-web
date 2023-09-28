@@ -1,6 +1,7 @@
 import { Grid } from '@mui/material';
 import { IconEdit } from 'components/assets/icons';
 import CommonStyles from 'components/CommonStyles';
+import Box from 'components/CommonStyles/Box';
 import CustomToggle from 'components/CustomToggle';
 import TablePaging from 'components/TablePaging';
 import TableWrapper from 'components/TableWrapper';
@@ -10,7 +11,7 @@ import BaseUrl from 'consts/baseUrl';
 import { IParamsPage } from 'interfaces/global';
 import React, { useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import ModalCreateStaff from './components/ModalCreate';
+import ModalCreateStaff from './components/ModalCreateFacility';
 import SearchForm from './components/SearchForm';
 
 const tableHeader = [
@@ -78,7 +79,7 @@ const PageFacilityManagement = () => {
 
       return [
         {
-          value: index + 1,
+          value: <Box onClick={() => navigate(BaseUrl.DetailFacilityManagement)}>{index + 1}</Box>,
         },
         {
           value: code,
@@ -102,7 +103,7 @@ const PageFacilityManagement = () => {
           value: (
             <Grid sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
               <CommonStyles.Box
-                onClick={() => navigate(BaseUrl.DetailFacilityManagement)}
+                onClick={() => navigate(BaseUrl.UpdateFacilityManagement)}
                 sx={{ cursor: 'pointer' }}
               >
                 <IconEdit />
