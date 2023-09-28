@@ -1,0 +1,29 @@
+@mixin tagSchedule($background, $color) {
+  background: $background;
+  color: $color;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 24px;
+  padding: 6px 10px;
+  border-radius: 6px;
+}
+
+.tagYellow {
+    @include tagSchedule(#ffa0114d, #ffa011 )
+}
+
+.tagPurple {
+    @include tagSchedule(#8428E64D, #8428E6 )
+}
+
+.tagGreen {
+    @include tagSchedule(#46A34A4D, #46A34A )
+}
+
+.tagBlue {
+    @include tagSchedule(#00A3FF4D, #00A3FF )
+}
+
+.tagRed {
+    @include tagSchedule(#FF17004D, #FF1700 )
+}

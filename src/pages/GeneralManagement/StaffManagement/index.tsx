@@ -52,15 +52,6 @@ const dataFake = [
     phoneNumber: '0934355643',
     manager: 'Nguyễn Thị Anh',
   },
-  // {
-  //   id: 4,
-  //   code: 'TT213213',
-  //   logo: '',
-  //   name: 'Trung tâm cầu giấy',
-  //   address: 'Số 48, Xuân Thuỷ, Cầu Giấy',
-  //   phoneNumber: '0934355643',
-  //   manager: 'Nguyễn Thị Anh',
-  // },
 ];
 
 const PageStaffManagement = () => {

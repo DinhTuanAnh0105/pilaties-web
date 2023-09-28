@@ -16,7 +16,14 @@ const CreateTrungTam = lazy(
 const DetailTrungTam = lazy(
   () => import('pages/GeneralManagement/FacilityManagement/DetailTrungTam')
 );
-const AccountInfo = lazy(() => import('pages/AccountInfo'));
+const TypeExercise = lazy(() => import('pages/GeneralManagement/TypeExercise/index'));
+const DetailTypeExercise = lazy(() => import('pages/GeneralManagement/TypeExercise/detail'));
+
+const AccountInfo = lazy(() => import('pages/Member'));
+
+const ListMember = lazy(() => import('pages/Member/ListMember/index'));
+
+const TeachingSchedule = lazy(() => import('pages/Classes/TeachingSchedule/index'));
 
 interface Route {
   name: string;
@@ -88,6 +95,16 @@ const routes: Route[] = [
         path: BaseUrl.DetailFacilityManagement,
         component: withCheckRole(DetailTrungTam, [PERMISSION_ENUM.PUBLIC]),
       },
+      {
+        name: 'Type of exercise',
+        path: BaseUrl.TypeExercise,
+        component: withCheckRole(TypeExercise, [PERMISSION_ENUM.PUBLIC]),
+      },
+      {
+        name: 'Detail type of exercise',
+        path: BaseUrl.DeatilTypeExercise,
+        component: withCheckRole(DetailTypeExercise, [PERMISSION_ENUM.PUBLIC]),
+      },
     ],
   },
   {
@@ -100,6 +117,24 @@ const routes: Route[] = [
         name: 'Account Information',
         path: BaseUrl.AccountInformation,
         component: withCheckRole(AccountInfo, [PERMISSION_ENUM.PUBLIC]),
+      },
+      {
+        name: 'List Member',
+        path: BaseUrl.ListMember,
+        component: withCheckRole(ListMember, [PERMISSION_ENUM.PUBLIC]),
+      },
+    ],
+  },
+  {
+    name: 'Classes',
+    path: BaseUrl.Classes,
+    layout: DefaultLayout,
+    isPrivateRoute: true,
+    routeChild: [
+      {
+        name: 'Teaching Schedule',
+        path: BaseUrl.TeachingSchedule,
+        component: withCheckRole(TeachingSchedule, [PERMISSION_ENUM.PUBLIC]),
       },
     ],
   },

@@ -1,18 +1,21 @@
 import { Grid } from '@mui/material';
 import ButtonCreate from 'components/CustomButton/ButtonCreate';
+import ButtonExport from 'components/CustomButton/ButtonExport';
 import ButtonReload from 'components/CustomButton/ButtonReload';
 import ButtonSearch from 'components/CustomButton/ButtonSearch';
 import SelectField from 'components/CustomFields/SelectField';
 import TextField from 'components/CustomFields/TextField';
 import { Field, Form, Formik } from 'formik';
-import { Fragment, useState } from 'react';
-import ModalCreateStaff from './ModalCreate';
+import { Fragment } from 'react';
+
+const initialValues = {
+  name: '',
+};
 
 const SearchForm = () => {
   //! define
 
   //! state
-  const [openModal, setOpenModal] = useState<boolean>(false);
 
   //! function
 
@@ -21,7 +24,7 @@ const SearchForm = () => {
   //! render
   return (
     <Fragment>
-      <Formik onSubmit={(values) => console.log('values', values)} initialValues={{}}>
+      <Formik onSubmit={(values) => console.log('values', values)} initialValues={initialValues}>
         {(propsFormik: any) => {
           return (
             <Form>
@@ -70,14 +73,13 @@ const SearchForm = () => {
                 <Grid item lg={4} sx={{ display: 'flex', gap: '8px' }}>
                   <ButtonSearch handleClick={() => {}} />
                   <ButtonReload handleClick={() => {}} />
-                  <ButtonCreate handleClick={() => setOpenModal(true)} />
+                  <ButtonExport handleClick={() => {}} />
                 </Grid>
               </Grid>
             </Form>
           );
         }}
       </Formik>
-      {openModal && <ModalCreateStaff open={openModal} onClose={() => setOpenModal(false)} />}
     </Fragment>
   );
 };

@@ -123,146 +123,265 @@ const CreateTrungTam = () => {
 
   //! render
   return (
-    <WrapperBlock title='Thêm mới trung tâm' count={10}>
-      <CommonStyles.Box sx={{ display: 'flex', gap: 2 }}>
-        <CommonStyles.Box sx={{ flex: 2 }}>
+    <WrapperBlock title='Thêm mới trung tâm'>
+      <Grid container spacing={2}>
+        <Grid item xs={4}>
           <Formik onSubmit={() => {}} initialValues={{}}>
             {(props) => {
               return (
                 <Form>
-                  <CommonStyles.Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
-                    <input
-                      type='file'
-                      id='modal-create-staff'
-                      onChange={(event) => handleReadImage(event, setSelectedImage)}
-                    />
-                    <label
-                      htmlFor='modal-create-staff'
-                      style={{
-                        cursor: 'pointer',
-                        width: '120px',
-                        height: '120px',
-                        borderRadius: '50%',
-                      }}
-                    >
-                      {selectedImage ? (
-                        <img
-                          src={selectedImage}
-                          alt='Avatar'
+                  <Grid container spacing={2}>
+                    {/* <Grid item xs={3}>
+                      <input
+                        type='file'
+                        id='modal-create-staff'
+                        onChange={(event) => handleReadImage(event, setSelectedImage)}
+                      />
+                      <label
+                        htmlFor='modal-create-staff'
+                        style={{
+                          cursor: 'pointer',
+                          width: '120px',
+                          height: '120px',
+                          borderRadius: '50%',
+                        }}
+                      >
+                        {selectedImage ? (
+                          <img
+                            src={selectedImage}
+                            alt='Avatar'
+                            style={{
+                              width: '120px',
+                              height: '120px',
+                              borderRadius: '50%',
+                              border: '1px solid #d9d9d9',
+                            }}
+                          />
+                        ) : (
+                          <IconAddImage />
+                        )}
+                      </label>
+                    </Grid> */}
+                    {/* <Grid item xs={9}>
+                      <Field
+                        component={TextFieldLabel}
+                        name='background'
+                        label='Mã màu nền'
+                        placeholder='Nhập mã màu nền'
+                        required
+                        fullWidth
+                      />
+                      <input
+                        type='color'
+                        onChange={(e) => console.log('e', e.target.value)}
+                        className='input-color'
+                      />
+
+                      <Grid item xs={12}>
+                        <Field
+                          component={TextFieldLabel}
+                          name='background'
+                          label='Mã màu nền'
+                          placeholder='Nhập mã màu nền'
+                          required
+                          fullWidth
+                        />
+                      </Grid>
+                    </Grid> */}
+                    <Grid item xs={12} sx={{ display: 'flex', gap: 2, alignItems: 'center' }}>
+                      <CommonStyles.Box>
+                        <input
+                          type='file'
+                          id='modal-create-staff'
+                          onChange={(event) => handleReadImage(event, setSelectedImage)}
+                        />
+                        <label
+                          htmlFor='modal-create-staff'
                           style={{
+                            cursor: 'pointer',
                             width: '120px',
                             height: '120px',
                             borderRadius: '50%',
-                            border: '1px solid #d9d9d9',
                           }}
-                        />
-                      ) : (
-                        <IconAddImage />
-                      )}
-                    </label>
+                        >
+                          {selectedImage ? (
+                            <img
+                              src={selectedImage}
+                              alt='Avatar'
+                              style={{
+                                width: '120px',
+                                height: '120px',
+                                borderRadius: '50%',
+                                border: '1px solid #d9d9d9',
+                              }}
+                            />
+                          ) : (
+                            <IconAddImage />
+                          )}
+                        </label>
+                      </CommonStyles.Box>
+                      <CommonStyles.Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+                        <CommonStyles.Box
+                          sx={{
+                            display: 'flex',
+                            alignItems: 'end',
+                          }}
+                        >
+                          <Field
+                            component={TextFieldLabel}
+                            name='background'
+                            label='Mã màu nền'
+                            placeholder='Nhập mã màu nền'
+                            required
+                            fullWidth
+                          />
 
-                    <Field
-                      component={TextFieldLabel}
-                      name='username'
-                      label='Tên trung tâm'
-                      placeholder='Vui lòng nhập'
-                      required
-                      fullWidth
-                    />
-                    <Field
-                      component={TextFieldLabel}
-                      name='username'
-                      label='Mã trung tâm'
-                      placeholder='Vui lòng nhập'
-                      required
-                      fullWidth
-                    />
-                    <Field
-                      component={TextFieldLabel}
-                      name='usercode'
-                      label='Số điện thoại'
-                      placeholder='Vui lòng nhập'
-                      required
-                      fullWidth
-                    />
-                    <Field
-                      component={SelectFieldLabel}
-                      name='role'
-                      label='Người quản lý'
-                      placeholder='Vui lòng chọn'
-                      options={[]}
-                      required
-                      fullWidth
-                    />
-                    <Field
-                      component={TextFieldLabel}
-                      name='usercode'
-                      label='Email'
-                      placeholder='Vui lòng nhập'
-                      fullWidth
-                    />
-                    <Field
-                      component={TextFieldLabel}
-                      name='phoneNumber'
-                      label='Địa chỉ'
-                      placeholder='Vui lòng nhập'
-                      required
-                      fullWidth
-                    />
-                    <Field
-                      component={SelectFieldLabel}
-                      name='role'
-                      label='Tỉnh/Thành phố'
-                      placeholder='Vui lòng chọn'
-                      options={[]}
-                      required
-                      fullWidth
-                    />
-                    <Field
-                      component={SelectFieldLabel}
-                      name='role'
-                      label='Quân/Huyện'
-                      placeholder='Vui lòng chọn'
-                      options={[]}
-                      required
-                      fullWidth
-                    />
-                    <Field
-                      component={SelectFieldLabel}
-                      name='position'
-                      label='Người quản lý'
-                      placeholder='Vui lòng chọn'
-                      options={[]}
-                      required
-                      fullWidth
-                    />
-                    <Field
-                      component={SelectFieldLabel}
-                      name='position'
-                      label='Số học viên tối đa trong lớp học'
-                      placeholder='Vui lòng chọn'
-                      options={[]}
-                      fullWidth
-                    />
+                          <input
+                            type='color'
+                            onChange={(e) => console.log('e', e.target.value)}
+                            className='input-color'
+                          />
+                        </CommonStyles.Box>
+                        <CommonStyles.Box sx={{ display: 'flex', alignItems: 'end' }}>
+                          <Field
+                            component={TextFieldLabel}
+                            name='background'
+                            label='Mã màu nền'
+                            placeholder='Nhập mã màu nền'
+                            required
+                            fullWidth
+                          />
+                          <input
+                            type='color'
+                            onChange={(e) => console.log('e', e.target.value)}
+                            className='input-color'
+                          />
+                        </CommonStyles.Box>
+                      </CommonStyles.Box>
+                    </Grid>
+                    <Grid item xs={12}>
+                      <Field
+                        component={TextFieldLabel}
+                        name='username'
+                        label='Tên trung tâm'
+                        placeholder='Vui lòng nhập'
+                        required
+                        fullWidth
+                      />
+                    </Grid>
+                    <Grid item xs={6}>
+                      <Field
+                        component={TextFieldLabel}
+                        name='username'
+                        label='Mã trung tâm'
+                        placeholder='Vui lòng nhập'
+                        required
+                        fullWidth
+                      />
+                    </Grid>
+                    <Grid item xs={6}>
+                      <Field
+                        component={TextFieldLabel}
+                        name='usercode'
+                        label='Số điện thoại'
+                        placeholder='Vui lòng nhập'
+                        required
+                        fullWidth
+                      />
+                    </Grid>
+                    <Grid item xs={12}>
+                      <Field
+                        component={SelectFieldLabel}
+                        name='role'
+                        label='Người quản lý'
+                        placeholder='Vui lòng chọn'
+                        options={[]}
+                        required
+                        fullWidth
+                      />
+                    </Grid>
+                    <Grid item xs={12}>
+                      <Field
+                        component={TextFieldLabel}
+                        name='usercode'
+                        label='Email'
+                        placeholder='Vui lòng nhập'
+                        fullWidth
+                      />
+                    </Grid>
+                    <Grid item xs={12}>
+                      <Field
+                        component={TextFieldLabel}
+                        name='phoneNumber'
+                        label='Địa chỉ'
+                        placeholder='Vui lòng nhập'
+                        required
+                        fullWidth
+                      />
+                    </Grid>
+                    <Grid item xs={12}>
+                      <Field
+                        component={SelectFieldLabel}
+                        name='role'
+                        label='Tỉnh/Thành phố'
+                        placeholder='Vui lòng chọn'
+                        options={[]}
+                        required
+                        fullWidth
+                      />
+                    </Grid>
+                    <Grid item xs={12}>
+                      <Field
+                        component={SelectFieldLabel}
+                        name='role'
+                        label='Quân/Huyện'
+                        placeholder='Vui lòng chọn'
+                        options={[]}
+                        required
+                        fullWidth
+                      />
+                    </Grid>
+                    <Grid item xs={12}>
+                      <Field
+                        component={SelectFieldLabel}
+                        name='position'
+                        label='Người quản lý'
+                        placeholder='Vui lòng chọn'
+                        options={[]}
+                        required
+                        fullWidth
+                      />
+                    </Grid>
+                    <Grid item xs={12}>
+                      <Field
+                        component={SelectFieldLabel}
+                        name='position'
+                        label='Số học viên tối đa trong lớp học'
+                        placeholder='Vui lòng chọn'
+                        options={[]}
+                        fullWidth
+                      />
+                    </Grid>
+
                     <DialogActions>
                       <ButtonCancel handleClick={() => {}} />
                       <ButtonSave handleClick={() => {}} />
                     </DialogActions>
-                  </CommonStyles.Box>
+                  </Grid>
                 </Form>
               );
             }}
           </Formik>
-        </CommonStyles.Box>
-        <CommonStyles.Box sx={{ flex: 3, display: 'flex', flexDirection: 'column', gap: 2 }}>
+        </Grid>
+        <Grid item xs={8}>
           <SearchFormFacility />
           <CommonStyles.Box>
             <TableWrapper rows={rows} headers={tableHeader} />
             <TablePaging count={100} paramsPage={paramsPage} setParamsPage={setParamsPage} />
           </CommonStyles.Box>
-        </CommonStyles.Box>
+        </Grid>
         {openModal && <ModalCreateStaff open={openModal} onClose={() => setOpenModal(false)} />}
-      </CommonStyles.Box>
+      </Grid>
     </WrapperBlock>
   );
 };
