@@ -7,10 +7,9 @@ import SelectField from 'components/CustomFields/SelectField';
 import TextField from 'components/CustomFields/TextField';
 import BaseUrl from 'consts/baseUrl';
 import { Field, Form, Formik } from 'formik';
-import { Fragment, useState } from 'react';
+import { Fragment } from 'react';
 import { useNavigate } from 'react-router-dom';
 import * as Yup from 'yup';
-import ModalCreateStaff from './ModalCreate';
 
 const validationSearchForm = Yup.object().shape({
   name: Yup.string().required('Tên  là trường bắt buộc'),
@@ -26,7 +25,6 @@ const SearchForm = () => {
   const navigate = useNavigate();
 
   //! state
-  const [openModal, setOpenModal] = useState<boolean>(false);
 
   //! function
 
@@ -99,7 +97,6 @@ const SearchForm = () => {
           );
         }}
       </Formik>
-      {openModal && <ModalCreateStaff open={openModal} onClose={() => setOpenModal(false)} />}
     </Fragment>
   );
 };
