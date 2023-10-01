@@ -10,6 +10,7 @@ import { IParamsPage } from 'interfaces/global';
 import React, { useMemo, useState } from 'react';
 import { renderStatusContract } from 'utils/renderStatus';
 import SearchForm from './components/SearchForm';
+import ModalRemain from './components/ModalRemain';
 
 const tableHeader = [
   'STT',
@@ -91,6 +92,7 @@ const ListMember = () => {
 
   //! state
   const [paramsPage, setParamsPage] = useState<IParamsPage>(DEFAULT_PARAMSPAGE);
+  const [openModal, setOpenModal] = useState<boolean>(false);
 
   //! function
   const rows = useMemo(() => {
@@ -136,7 +138,7 @@ const ListMember = () => {
           value: place,
         },
         {
-          value: remain,
+          value: <CommonStyles.Box onClick={() => setOpenModal(true)}>{remain}</CommonStyles.Box>,
         },
         {
           value: renderStatusContract(statusContract),
@@ -171,6 +173,7 @@ const ListMember = () => {
         <TableWrapper rows={rows} headers={tableHeader} />
         <TablePaging count={100} paramsPage={paramsPage} setParamsPage={setParamsPage} />
       </CommonStyles.Box>
+      {openModal && <ModalRemain open={openModal} onClose={() => setOpenModal(false)} />}
     </WrapperBlock>
   );
 };
