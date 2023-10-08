@@ -47,7 +47,7 @@ const menuFake = [
     id: 2,
     name: 'Hợp đồng',
     icon: <IconContract />,
-    href: '',
+    href: BaseUrl.Contract,
     children: [],
   },
   {
@@ -67,7 +67,7 @@ const menuFake = [
         id: 3.2,
         name: 'Quản lý booking',
         icon: null,
-        href: '',
+        href: BaseUrl.Booking,
         children: [],
       },
       {
@@ -109,7 +109,7 @@ const menuFake = [
         id: 5.3,
         name: 'Quản lý gói tập',
         icon: null,
-        href: '',
+        href: BaseUrl.PackageExercise,
         children: [],
       },
       {

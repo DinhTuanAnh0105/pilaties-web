@@ -23,6 +23,7 @@ const BaseUrl = {
   DetailFacility: '/general-management/facility-management/facility/detail',
   TypeExercise: '/general-management/type-exercise',
   DeatilTypeExercise: '/general-management/type-exercise/detail',
+  PackageExercise: '/general-management/package-exercise',
 
   //! account
   AccountInformation: '/account-information',
@@ -33,6 +34,9 @@ const BaseUrl = {
   Classes: '/classes',
   TeachingSchedule: '/classes/teaching-schedule',
   Booking: '/classes/booking',
+
+  //! contract
+  Contract: '/contract',
 };
 
 export default BaseUrl;

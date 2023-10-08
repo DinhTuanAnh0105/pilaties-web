@@ -32,6 +32,8 @@ const InfoMember = lazy(() => import('pages/Member/InfoMember/index'));
 
 const TeachingSchedule = lazy(() => import('pages/Classes/TeachingSchedule/index'));
 const Booking = lazy(() => import('pages/Classes/Booking'));
+const PagePackageExerciseManagement = lazy(() => import('pages/GeneralManagement/PackageExercise'));
+const Contract = lazy(() => import('pages/Contract'));
 
 interface Route {
   name: string;
@@ -123,6 +125,11 @@ const routes: Route[] = [
         path: BaseUrl.DeatilTypeExercise,
         component: withCheckRole(DetailTypeExercise, [PERMISSION_ENUM.PUBLIC]),
       },
+      {
+        name: 'Package exercise',
+        path: BaseUrl.PackageExercise,
+        component: withCheckRole(PagePackageExerciseManagement, [PERMISSION_ENUM.PUBLIC]),
+      },
     ],
   },
   {
@@ -163,6 +170,19 @@ const routes: Route[] = [
         name: 'Booking',
         path: BaseUrl.Booking,
         component: withCheckRole(Booking, [PERMISSION_ENUM.PUBLIC]),
+      },
+    ],
+  },
+  {
+    name: 'Contract',
+    path: BaseUrl.Contract,
+    layout: DefaultLayout,
+    isPrivateRoute: true,
+    routeChild: [
+      {
+        name: 'Contract',
+        path: BaseUrl.Contract,
+        component: withCheckRole(Contract, [PERMISSION_ENUM.PUBLIC]),
       },
     ],
   },
