@@ -28,8 +28,10 @@ const DetailTypeExercise = lazy(() => import('pages/GeneralManagement/TypeExerci
 const AccountInfo = lazy(() => import('pages/Member'));
 
 const ListMember = lazy(() => import('pages/Member/ListMember/index'));
+const InfoMember = lazy(() => import('pages/Member/InfoMember/index'));
 
 const TeachingSchedule = lazy(() => import('pages/Classes/TeachingSchedule/index'));
+const Booking = lazy(() => import('pages/Classes/Booking'));
 
 interface Route {
   name: string;
@@ -139,6 +141,11 @@ const routes: Route[] = [
         path: BaseUrl.ListMember,
         component: withCheckRole(ListMember, [PERMISSION_ENUM.PUBLIC]),
       },
+      {
+        name: 'Info Member',
+        path: BaseUrl.InfoMember,
+        component: withCheckRole(InfoMember, [PERMISSION_ENUM.PUBLIC]),
+      },
     ],
   },
   {
@@ -151,6 +158,11 @@ const routes: Route[] = [
         name: 'Teaching Schedule',
         path: BaseUrl.TeachingSchedule,
         component: withCheckRole(TeachingSchedule, [PERMISSION_ENUM.PUBLIC]),
+      },
+      {
+        name: 'Booking',
+        path: BaseUrl.Booking,
+        component: withCheckRole(Booking, [PERMISSION_ENUM.PUBLIC]),
       },
     ],
   },

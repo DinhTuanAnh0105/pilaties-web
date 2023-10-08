@@ -1,18 +1,16 @@
-import { DialogActions, Grid } from '@mui/material';
+import { Grid } from '@mui/material';
 import ButtonCreate from 'components/CustomButton/ButtonCreate';
 import ButtonReload from 'components/CustomButton/ButtonReload';
 import ButtonSearch from 'components/CustomButton/ButtonSearch';
 import SelectField from 'components/CustomFields/SelectField';
 import TextField from 'components/CustomFields/TextField';
 import { Field, Form, Formik } from 'formik';
-import { Fragment, useState } from 'react';
-import ModalCreateMember from './ModalCreateMember';
+import { Fragment } from 'react';
 
 const SearchForm = () => {
-  //! define∏
+  //! define
 
   //! state
-  const [openModal, setOpenModal] = useState<boolean>(false);
 
   //! function
 
@@ -27,51 +25,33 @@ const SearchForm = () => {
             <Form>
               <Grid container spacing={2}>
                 <Grid item xs={12} md={6} lg={2}>
-                  <Field component={TextField} fullWidth name='name' label='Tên hoặc mã hội viên' />
+                  <Field component={TextField} fullWidth name='name' label='Tên lớp' />
                 </Grid>
                 <Grid item xs={12} md={6} lg={2}>
-                  <Field component={TextField} fullWidth name='phoneNumber' label='Số điện thoại' />
+                  <Field component={TextField} fullWidth name='coach' label='Huấn luyện viên' />
                 </Grid>
                 <Grid item xs={12} md={6} lg={2}>
-                  <Field
-                    component={SelectField}
-                    fullWidth
-                    name='location'
-                    label='Trung tâm'
-                    options={[
-                      {
-                        label: 'Trung tâm cầu giấy',
-                        value: 1,
-                      },
-                    ]}
-                  />
+                  <Field component={TextField} fullWidth name='time' label='Ngày diễn ra' />
                 </Grid>
                 <Grid item xs={12} md={6} lg={2}>
                   <Field
                     component={SelectField}
                     fullWidth
-                    name='location'
+                    name='place'
                     label='Cơ sở'
                     options={[]}
                   />
                 </Grid>
-                <Grid item xs={12} md={6} lg={2}>
-                  <Field component={TextField} fullWidth name='remain' label='Số buổi còn lại' />
-                </Grid>
-                <Grid item xs={12} md={6} lg={2}>
-                  <Field component={TextField} fullWidth name='recent' label='Hoạt động gần nhất' />
-                </Grid>
+
                 <Grid item lg={4} sx={{ display: 'flex', gap: '8px' }}>
                   <ButtonSearch handleClick={() => {}} />
                   <ButtonReload handleClick={() => {}} />
-                  <ButtonCreate handleClick={() => setOpenModal(true)} />
                 </Grid>
               </Grid>
             </Form>
           );
         }}
       </Formik>
-      {openModal && <ModalCreateMember open={openModal} onClose={() => setOpenModal(false)} />}
     </Fragment>
   );
 };
