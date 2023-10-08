@@ -3,7 +3,7 @@ import { useTheme } from '@mui/material/styles';
 import CommonStyles from 'components/CommonStyles';
 import ButtonClose from 'components/CustomButton/ButtonClose';
 
-const ModalRemain = ({ open, onClose }: { open: boolean; onClose: () => void }) => {
+const ModalPackage = ({ open, onClose }: { open: boolean; onClose: () => void }) => {
   //! define
   const theme = useTheme();
 
@@ -18,7 +18,7 @@ const ModalRemain = ({ open, onClose }: { open: boolean; onClose: () => void }) 
     <Dialog open={open} onClose={onClose} fullWidth sx={{ zIndex: 1201 }}>
       <CommonStyles.Box style={{ margin: '24px' }}>
         <Typography sx={{ fontSize: '24px', fontWeight: 700, lineHeight: '28px', mb: '16px' }}>
-          Nguyễn Thị A còn 30 buổi
+          Các gói tập trong hợp đồng HD528238
         </Typography>
         <DialogContent sx={{ p: 1, w: '100%' }}>
           <CommonStyles.Box>
@@ -26,29 +26,29 @@ const ModalRemain = ({ open, onClose }: { open: boolean; onClose: () => void }) 
               <thead style={{ background: `${theme?.colors?.lineColor}` }}>
                 <tr>
                   <td>Gói tập luyện</td>
-                  <td>Số buổi còn lại</td>
+                  <td>Nội dung gói</td>
                 </tr>
               </thead>
               <tbody>
                 <tr>
                   <td>Gói 1</td>
                   <td>
-                    <div>GX: 1/20</div>
-                    <div>PT: 2/30</div>
+                    <div>GX: 20</div>
+                    <div>PT: 20</div>
                   </td>
                 </tr>
                 <tr>
                   <td>Gói 2</td>
                   <td>
-                    <div>GX: 1/20</div>
-                    <div>PT: 2/30</div>
+                    <div>GX: 20</div>
+                    <div>PT: 30</div>
                   </td>
                 </tr>
                 <tr>
-                  <td>Gói 3</td>
+                  <td>Tổng cộng</td>
                   <td>
-                    <div>GX: 1/20</div>
-                    <div>PT: 2/30</div>
+                    <div>GX: 40</div>
+                    <div>PT: 50</div>
                   </td>
                 </tr>
               </tbody>
@@ -63,4 +63,4 @@ const ModalRemain = ({ open, onClose }: { open: boolean; onClose: () => void }) 
   );
 };
 
-export default ModalRemain;
+export default ModalPackage;

@@ -11,6 +11,7 @@ import React, { useMemo, useState } from 'react';
 import { renderStatusContract } from 'utils/renderStatus';
 import SearchForm from './components/SearchForm';
 import ModalRemain from './components/ModalRemain';
+import { useTheme } from '@mui/material/styles';
 
 const tableHeader = [
   'STT',
@@ -89,6 +90,7 @@ const dataFake = [
 
 const ListMember = () => {
   //! define
+  const theme = useTheme();
 
   //! state
   const [paramsPage, setParamsPage] = useState<IParamsPage>(DEFAULT_PARAMSPAGE);
@@ -138,7 +140,14 @@ const ListMember = () => {
           value: place,
         },
         {
-          value: <CommonStyles.Box onClick={() => setOpenModal(true)}>{remain}</CommonStyles.Box>,
+          value: (
+            <CommonStyles.Box
+              onClick={() => setOpenModal(true)}
+              sx={{ color: theme?.colors?.blue, textDecoration: 'underline', cursor: 'pointer' }}
+            >
+              {remain}
+            </CommonStyles.Box>
+          ),
         },
         {
           value: renderStatusContract(statusContract),

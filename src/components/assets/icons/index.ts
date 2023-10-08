@@ -15,3 +15,5 @@ export { default as IconEdit } from './ic_edit';
 export { default as IconSearch } from './ic_search';
 export { default as IconAddImage } from './ic_add_image';
 export { default as IconBlankAvata } from './ic_blank_avatar';
+export { default as IconAgree } from './ic_agree';
+export { default as IconDisagree } from './ic_disagree';

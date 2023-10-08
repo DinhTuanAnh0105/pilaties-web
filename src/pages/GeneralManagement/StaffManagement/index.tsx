@@ -1,17 +1,15 @@
 import { Grid } from '@mui/material';
+import CommonStyles from 'components/CommonStyles';
 import CustomToggle from 'components/CustomToggle';
 import TablePaging from 'components/TablePaging';
 import TableWrapper from 'components/TableWrapper';
+import WrapperBlock from 'components/WrapperBlock';
 import { IconEdit } from 'components/assets/icons';
 import { DEFAULT_PARAMSPAGE } from 'consts';
 import { IParamsPage } from 'interfaces/global';
-import React, { ChangeEvent, useMemo, useState } from 'react';
-import SearchForm from './components/SearchForm';
-import CommonStyles from 'components/CommonStyles';
-import BlockTitle from 'components/BlockTitle';
-import WrapperBlock from 'components/WrapperBlock';
-import Modal from 'components/Modal';
+import { useMemo, useState } from 'react';
 import ModalCreateStaff from './components/ModalCreate';
+import SearchForm from './components/SearchForm';
 
 const tableHeader = [
   'STT',

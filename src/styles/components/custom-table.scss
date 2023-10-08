@@ -1,0 +1,22 @@
+table {
+    width: 100%;
+}
+
+td {
+    text-align: center;
+}
+
+td {
+    padding: 10px 0;
+}
+
+//! custom tab MUI
+.css-1oh6zn6-MuiButtonBase-root-MuiTab-root.Mui-selected {
+    background-color: #007BFF33 !important;
+    border-radius: 6px 6px 0 0;
+    color: #000 !important
+}
+
+.css-1rc2a2g-MuiTabs-indicator {
+    background-color: transparent !important;
+}
