@@ -280,7 +280,7 @@ const DefaultLayout = ({ children }: { children: React.ReactNode }) => {
 
       <Box
         component='main'
-        sx={{ flexGrow: 1, p: 3, mt: 10 }}
+        sx={{ flexGrow: 1, p: 3, mt: 10, background: `${theme?.colors?.background?.background2}` }}
         // sx={{ flexGrow: 1, p: 3, mt: 10, background: theme.colors?.background?.background5 }}
       >
         {/* <DrawerHeader /> */}

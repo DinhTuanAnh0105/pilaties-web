@@ -67,7 +67,7 @@ const menuFake = [
         id: 3.2,
         name: 'Quản lý booking',
         icon: null,
-        href: '',
+        href: BaseUrl.Booking,
         children: [],
       },
       {

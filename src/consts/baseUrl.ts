@@ -28,10 +28,12 @@ const BaseUrl = {
   //! account
   AccountInformation: '/account-information',
   ListMember: '/list-member',
+  InfoMember: '/info-member',
 
   //! classes
   Classes: '/classes',
   TeachingSchedule: '/classes/teaching-schedule',
+  Booking: '/classes/booking',
 
   //! contract
   Contract: '/contract',

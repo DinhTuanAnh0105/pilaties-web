@@ -1,4 +1,4 @@
-import { DialogActions, Grid } from '@mui/material';
+import { Grid } from '@mui/material';
 import ButtonCreate from 'components/CustomButton/ButtonCreate';
 import ButtonReload from 'components/CustomButton/ButtonReload';
 import ButtonSearch from 'components/CustomButton/ButtonSearch';
@@ -6,10 +6,10 @@ import SelectField from 'components/CustomFields/SelectField';
 import TextField from 'components/CustomFields/TextField';
 import { Field, Form, Formik } from 'formik';
 import { Fragment, useState } from 'react';
-import ModalCreateMember from './ModalCreateMember';
+import ModalCreate from './ModalCreate';
 
 const SearchForm = () => {
-  //! define∏
+  //! define
 
   //! state
   const [openModal, setOpenModal] = useState<boolean>(false);
@@ -28,9 +28,6 @@ const SearchForm = () => {
               <Grid container spacing={2}>
                 <Grid item xs={12} md={6} lg={2}>
                   <Field component={TextField} fullWidth name='name' label='Tên hoặc mã hội viên' />
-                </Grid>
-                <Grid item xs={12} md={6} lg={2}>
-                  <Field component={TextField} fullWidth name='phoneNumber' label='Số điện thoại' />
                 </Grid>
                 <Grid item xs={12} md={6} lg={2}>
                   <Field
@@ -56,10 +53,16 @@ const SearchForm = () => {
                   />
                 </Grid>
                 <Grid item xs={12} md={6} lg={2}>
-                  <Field component={TextField} fullWidth name='remain' label='Số buổi còn lại' />
+                  <Field
+                    component={SelectField}
+                    fullWidth
+                    name='status'
+                    label='Trạng thái'
+                    options={[]}
+                  />
                 </Grid>
                 <Grid item xs={12} md={6} lg={2}>
-                  <Field component={TextField} fullWidth name='recent' label='Hoạt động gần nhất' />
+                  <Field component={TextField} fullWidth name='time' label='Thời gian (Từ - Đến)' />
                 </Grid>
                 <Grid item lg={4} sx={{ display: 'flex', gap: '8px' }}>
                   <ButtonSearch handleClick={() => {}} />
@@ -71,7 +74,7 @@ const SearchForm = () => {
           );
         }}
       </Formik>
-      {openModal && <ModalCreateMember open={openModal} onClose={() => setOpenModal(false)} />}
+      {openModal && <ModalCreate open={openModal} onClose={() => setOpenModal(false)} />}
     </Fragment>
   );
 };
