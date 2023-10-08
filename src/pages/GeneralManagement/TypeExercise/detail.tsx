@@ -81,7 +81,7 @@ const DetailTypeExercise = () => {
 
   //! render
   return (
-    <WrapperBlock title='Danh sách loại lớp học của loại hình PT (n)' count={10}>
+    <WrapperBlock title='Danh sách loại lớp học của loại hình PT' count={10}>
       <SearchFormDetail />
       <CommonStyles.Box>
         <TableWrapper rows={rows} headers={tableHeader} />
