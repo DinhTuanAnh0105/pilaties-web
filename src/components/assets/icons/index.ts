@@ -17,3 +17,7 @@ export { default as IconAddImage } from './ic_add_image';
 export { default as IconBlankAvata } from './ic_blank_avatar';
 export { default as IconAgree } from './ic_agree';
 export { default as IconDisagree } from './ic_disagree';
+export { default as IconDelete } from './ic_delete';
+export { default as IconClipboard } from './ic_clipboard';
+export { default as IconUser } from './ic_user';
+export { default as IconTick } from './ic_tick';

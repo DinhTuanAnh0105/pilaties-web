@@ -6,6 +6,7 @@ const BaseUrl = {
   Callbacks: '/login/callback',
   Logout: '/logout',
   AppManagement: '/apps',
+  Dashboard: '/dashboard',
 
   CreateApp: '/create-app',
 
@@ -24,6 +25,7 @@ const BaseUrl = {
   TypeExercise: '/general-management/type-exercise',
   DeatilTypeExercise: '/general-management/type-exercise/detail',
   PackageExercise: '/general-management/package-exercise',
+  SystemNotifications: '/general-management/system-notifications',
 
   //! account
   AccountInformation: '/account-information',

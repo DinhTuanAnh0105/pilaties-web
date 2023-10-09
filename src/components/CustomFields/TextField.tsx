@@ -10,11 +10,7 @@ const TextField = ({ field, form, ...props }: Props & TextFieldProps) => {
   const { name, value, onBlur, onChange } = field || {};
   const { errors, touched } = form || {};
 
-  console.log('field', field);
-  console.log('form', form);
-
   const msgError = get(touched, name) && get(errors, name) ? get(errors, name) : '';
-  console.log('msgError', msgError);
 
   return (
     <MuiTextField
