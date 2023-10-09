@@ -7,6 +7,7 @@ import React, { Fragment, lazy } from 'react';
 const DefaultLayout = lazy(() => import('layouts/DefaultLayout'));
 const Login = lazy(() => import('pages/Login'));
 const Homepage = lazy(() => import('pages/Homepage'));
+const Dashboard = lazy(() => import('pages/Dashboard/index'));
 
 const PageStaffManagement = lazy(() => import('pages/GeneralManagement/StaffManagement'));
 const PageFacilityManagement = lazy(() => import('pages/GeneralManagement/FacilityManagement'));
@@ -24,6 +25,7 @@ const DetailFacility = lazy(
 );
 const TypeExercise = lazy(() => import('pages/GeneralManagement/TypeExercise/index'));
 const DetailTypeExercise = lazy(() => import('pages/GeneralManagement/TypeExercise/detail'));
+const SystemNotifications = lazy(() => import('pages/GeneralManagement/SystemNotifications/index'));
 
 const AccountInfo = lazy(() => import('pages/Member'));
 
@@ -80,6 +82,19 @@ const routes: Route[] = [
     ],
   },
   {
+    name: 'Dashboard',
+    path: BaseUrl.Dashboard,
+    layout: DefaultLayout,
+    isPrivateRoute: true,
+    routeChild: [
+      {
+        name: 'Dashboard',
+        path: BaseUrl.Dashboard,
+        component: withCheckRole(Dashboard, [PERMISSION_ENUM.PUBLIC]),
+      },
+    ],
+  },
+  {
     name: 'General Management',
     path: BaseUrl.GeneralManagement,
     layout: DefaultLayout,
@@ -129,6 +144,11 @@ const routes: Route[] = [
         name: 'Package exercise',
         path: BaseUrl.PackageExercise,
         component: withCheckRole(PagePackageExerciseManagement, [PERMISSION_ENUM.PUBLIC]),
+      },
+      {
+        name: 'System Notifications',
+        path: BaseUrl.SystemNotifications,
+        component: withCheckRole(SystemNotifications, [PERMISSION_ENUM.PUBLIC]),
       },
     ],
   },

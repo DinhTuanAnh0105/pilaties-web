@@ -144,7 +144,7 @@ const Booking = () => {
               sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 1 }}
             >
               {reason}
-              {status === 5 && (
+              {status === 1 && (
                 <CommonStyles.Box>
                   <IconAgree />
                   <IconDisagree />
