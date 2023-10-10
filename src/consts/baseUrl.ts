@@ -36,6 +36,7 @@ const BaseUrl = {
   Classes: '/classes',
   TeachingSchedule: '/classes/teaching-schedule',
   Booking: '/classes/booking',
+  ClassSchedule: '/classes/class-schedule',
 
   //! contract
   Contract: '/contract',

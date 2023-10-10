@@ -34,6 +34,7 @@ const InfoMember = lazy(() => import('pages/Member/InfoMember/index'));
 
 const TeachingSchedule = lazy(() => import('pages/Classes/TeachingSchedule/index'));
 const Booking = lazy(() => import('pages/Classes/Booking'));
+const ClassSchedule = lazy(() => import('pages/Classes/ClassSchedule/index'));
 const PagePackageExerciseManagement = lazy(() => import('pages/GeneralManagement/PackageExercise'));
 const Contract = lazy(() => import('pages/Contract'));
 const ComparePlace = lazy(() => import('pages/ComparePlace'));
@@ -196,6 +197,11 @@ const routes: Route[] = [
         name: 'Booking',
         path: BaseUrl.Booking,
         component: withCheckRole(Booking, [PERMISSION_ENUM.PUBLIC]),
+      },
+      {
+        name: 'Class Schedule',
+        path: BaseUrl.ClassSchedule,
+        component: withCheckRole(ClassSchedule, [PERMISSION_ENUM.PUBLIC]),
       },
     ],
   },

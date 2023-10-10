@@ -80,3 +80,20 @@ export const renderStatusBooking = (status: number) => {
       return null;
   }
 };
+
+export const renderStatusClassSchedule = (status: number) => {
+  switch (status) {
+    case 1:
+      return <CommonStyles.Box className='tagYellow'>Đặt chỗ</CommonStyles.Box>;
+    case 2:
+      return <CommonStyles.Box className='tagPurple'>Chưa diễn ra</CommonStyles.Box>;
+    case 3:
+      return <CommonStyles.Box className='tagGreen'>Đang diễn ra</CommonStyles.Box>;
+    case 4:
+      return <CommonStyles.Box className='tagBlue'>Kết thúc</CommonStyles.Box>;
+    case 5:
+      return <CommonStyles.Box className='tagRed'>Huỷ lớp</CommonStyles.Box>;
+    default:
+      return null;
+  }
+};
