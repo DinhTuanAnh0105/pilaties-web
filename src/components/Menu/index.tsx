@@ -83,7 +83,7 @@ const menuFake = [
     id: 4,
     name: 'Hội viên',
     icon: <IconCard />,
-    href: '',
+    href: BaseUrl.ListMember,
     children: [],
   },
   {
@@ -173,7 +173,15 @@ const CustomMenu = () => {
                     gap: 1,
                   }}
                   onMouseEnter={(e) => handleOpen(e, page.id)}
-                  onClick={(e) => isEmpty(anchorEl) && handleOpen(e, page.id)}
+                  onClick={(e) => {
+                    if (page.children?.length) {
+                      isEmpty(anchorEl) && handleOpen(e, page.id);
+                    } else {
+                      if (page.href) {
+                        navigate(page.href);
+                      }
+                    }
+                  }}
                   onMouseLeave={handleClose}
                 >
                   {page.icon}
