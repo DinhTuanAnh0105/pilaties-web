@@ -37,6 +37,7 @@ const Booking = lazy(() => import('pages/Classes/Booking'));
 const ClassSchedule = lazy(() => import('pages/Classes/ClassSchedule/index'));
 const PagePackageExerciseManagement = lazy(() => import('pages/GeneralManagement/PackageExercise'));
 const Contract = lazy(() => import('pages/Contract'));
+const ComparePlace = lazy(() => import('pages/ComparePlace'));
 
 interface Route {
   name: string;
@@ -92,6 +93,11 @@ const routes: Route[] = [
         name: 'Dashboard',
         path: BaseUrl.Dashboard,
         component: withCheckRole(Dashboard, [PERMISSION_ENUM.PUBLIC]),
+      },
+      {
+        name: 'Compare Place',
+        path: BaseUrl.ComparePlace,
+        component: withCheckRole(ComparePlace, [PERMISSION_ENUM.PUBLIC]),
       },
     ],
   },
