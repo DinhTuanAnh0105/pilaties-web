@@ -39,6 +39,9 @@ const BaseUrl = {
 
   //! contract
   Contract: '/contract',
+
+  //!
+  ComparePlace: '/dashboard/compare-place',
 };
 
 export default BaseUrl;

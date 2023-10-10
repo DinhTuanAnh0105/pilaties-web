@@ -97,6 +97,8 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 );
 
 const DefaultLayout = ({ children }: { children: React.ReactNode }) => {
+  const viewportHeight = window.innerHeight;
+
   //! State
   const { t } = useTranslation();
   const auth = useAuth();
@@ -242,7 +244,7 @@ const DefaultLayout = ({ children }: { children: React.ReactNode }) => {
   };
 
   return (
-    <Box sx={{}}>
+    <Box>
       <Drawer
         variant='permanent'
         open={open}
@@ -280,8 +282,13 @@ const DefaultLayout = ({ children }: { children: React.ReactNode }) => {
 
       <Box
         component='main'
-        sx={{ flexGrow: 1, p: 3, mt: 10, background: `${theme?.colors?.background?.background2}` }}
-        // sx={{ flexGrow: 1, p: 3, mt: 10, background: theme.colors?.background?.background5 }}
+        sx={{
+          flexGrow: 1,
+          p: 3,
+          mt: 10,
+          background: `${theme?.colors?.background?.background2}`,
+          minHeight: viewportHeight - 90,
+        }}
       >
         {/* <DrawerHeader /> */}
         <Suspense fallback={<CommonStyles.Loading />}>{children}</Suspense>
