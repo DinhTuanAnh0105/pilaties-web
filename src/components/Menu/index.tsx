@@ -60,7 +60,7 @@ const menuFake = [
         id: 3.1,
         name: 'Lịch lớp tập',
         icon: null,
-        href: '',
+        href: BaseUrl.ClassSchedule,
         children: [],
       },
       {
