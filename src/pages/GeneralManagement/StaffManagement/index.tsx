@@ -10,6 +10,8 @@ import { IParamsPage } from 'interfaces/global';
 import { useMemo, useState } from 'react';
 import ModalCreateStaff from './components/ModalCreate';
 import SearchForm from './components/SearchForm';
+import useGetListUser from 'hooks/users/useGetListUser';
+import useGetListDepartment from 'hooks/category_department/useGetListDepartment';
 
 const tableHeader = [
   'STT',
@@ -53,39 +55,49 @@ const dataFake = [
 ];
 
 const PageStaffManagement = () => {
-  //! define
-
   //! state
   const [paramsPage, setParamsPage] = useState<IParamsPage>(DEFAULT_PARAMSPAGE);
   const [openModal, setOpenModal] = useState<boolean>(false);
 
+  const { data: listUser } = useGetListUser();
+
+  console.log('data', listUser);
+
+  const { data: listDepartment } = useGetListDepartment({ page: 0, size: 1000 });
+
+  console.log('listDepartment', listDepartment);
+
   //! function
   const rows = useMemo(() => {
-    return dataFake.map((staff, index) => {
-      const { id, code, logo, name, address, phoneNumber, manager } = staff;
+    return listUser.map((staff, index) => {
+      const { id, code, phoneNumber, departmentId } = staff;
 
       return [
         {
           value: index + 1,
         },
         {
-          value: code,
+          value: () => {
+            console.log('departmentId', departmentId);
+
+            return {};
+          },
         },
-        {
-          value: logo,
-        },
+        // {
+        //   value: logo,
+        // },
         {
           value: name,
         },
-        {
-          value: address,
-        },
+        // {
+        //   value: address,
+        // },
         {
           value: phoneNumber,
         },
-        {
-          value: manager,
-        },
+        // {
+        //   value: manager,
+        // },
         {
           value: (
             <Grid sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
