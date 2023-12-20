@@ -3,6 +3,7 @@ import { PERMISSION_ENUM } from 'consts/index';
 import httpService from 'services/httpService';
 import { UserInfo } from 'interfaces/user';
 import { showError } from 'helpers/toast';
+import { AuthApi, BASE_URL } from 'consts/apiUrl';
 
 interface AuthenticationContextI {
   loading: boolean;
@@ -35,35 +36,54 @@ const AuthenticationProvider = ({ children }: { children: any }) => {
   const [isLogging, setIsLogging] = useState(false);
 
   //! Function
-  const login = useCallback(({ username, password }: { username: string; password: string }) => {
-    setIsLogging(true);
+  const login = useCallback(
+    async ({ username, password }: { username: string; password: string }) => {
+      setIsLogging(true);
 
-    if (username === 'don' && password === 'don') {
-      const mockToken =
-        'eyJraWQiOiJ2cEFTTkxvZVwvdWh2dkwrRm5EYWdROVBkNnlPVFMranVpODFxTGFUSkdtVT0iLCJhbGciOiJSUzI1NiJ9.eyJzdWIiOiI5YTI5ZDVkNC1iYjM5LTRhY2YtOTJiNi0xMjk5YjUxMmU5YzQiLCJjb2duaXRvOmdyb3VwcyI6WyJ1c2VyIl0sImlzcyI6Imh0dHBzOlwvXC9jb2duaXRvLWlkcC5hcC1zb3V0aGVhc3QtMS5hbWF6b25hd3MuY29tXC9hcC1zb3V0aGVhc3QtMV83d3pXVjZ5eUwiLCJ2ZXJzaW9uIjoyLCJjbGllbnRfaWQiOiI0NTBtYmFmYm5yZHMwcDhlNXJrM2pmNGp0NSIsIm9yaWdpbl9qdGkiOiJhMDEzNzdiNC0wOWYyLTQyZjAtYTI3NS1iZDcyMGI4ZDdiYzYiLCJ0b2tlbl91c2UiOiJhY2Nlc3MiLCJzY29wZSI6Im9wZW5pZCBwcm9maWxlIGVtYWlsIiwiYXV0aF90aW1lIjoxNjc5NTcwMTg3LCJleHAiOjE2Nzk1NzM3ODcsImlhdCI6MTY3OTU3MDE4NywianRpIjoiMDk0NjViZjYtYjQ3NS00NTRmLWEyNzItZjMyYTljYmE1NDFmIiwidXNlcm5hbWUiOiJhcHB1c2VyMDEifQ.gIkfpfdkR0awyo3d4bYpL4NB5Hq78YOS_xkQ3QrwHMyLzdzLJAmmRU9Ugm0M4zlN4h12S4Kju59Ixw1eH1dsyCXvdYGS8iAijoZJZYNPswUI7jiKck-3e3LHN9hmsj6VqB-Yc84-5eRq6sZPtbtfKn-Em9FgOUrZ6TgJ41irBxrEQcZQR2x0-paHrl8dEFIc2KuJp77KeEAnf02vEVw9jLzF_KpMf4RO6cCfwg3fWtusyFYGFQlx34HzkMc7bpjrJe-jvWRSBCNfzyumyeUtZzNiS1v8olYjCA2k2gGaYDDXWZxpj6TcghThGmxMaMBe2R5Azb9MKewFzTqK7qYfcg';
-      const mockUser = {
-        id: '9a29d5d4-bb39-4acf-92b6-1299b512e9c4',
-        username: 'appuser01',
-        firstname: 'User 01',
-        lastname: 'App',
-        phoneNumber: '+849853092875',
-        email: 'appuser01@testmail.com',
-        company: 'Company User 01',
-        address: 'Address User 01',
-        roles: ['user'],
-        isFirstTimeLogin: false,
-      };
-      setToken(mockToken);
-      setUser(mockUser);
+      try {
+        const response = await httpService.post(`${BASE_URL}/${AuthApi.LOGIN}`, {
+          username,
+          password,
+        });
+        if (response.status === 200) {
+          setToken(response.data.user.accessToken);
+          setUser(response.data.user);
+          httpService.attachTokenToHeader(response.data.user.accessToken);
+          httpService.saveTokenStorage(response.data.user.accessToken);
+          httpService.saveUserStorage(response.data.user);
+        }
+      } catch (error) {
+        console.log('errr', error);
+      }
 
-      httpService.attachTokenToHeader(mockToken);
-      httpService.saveTokenStorage(mockToken);
-      httpService.saveUserStorage(mockUser);
-      setIsLogging(false);
-    } else {
-      showError('User/password is not correct!');
-    }
-  }, []);
+      // if (username === 'don' && password === 'don') {
+      //   const mockToken =
+      //     'eyJraWQiOiJ2cEFTTkxvZVwvdWh2dkwrRm5EYWdROVBkNnlPVFMranVpODFxTGFUSkdtVT0iLCJhbGciOiJSUzI1NiJ9.eyJzdWIiOiI5YTI5ZDVkNC1iYjM5LTRhY2YtOTJiNi0xMjk5YjUxMmU5YzQiLCJjb2duaXRvOmdyb3VwcyI6WyJ1c2VyIl0sImlzcyI6Imh0dHBzOlwvXC9jb2duaXRvLWlkcC5hcC1zb3V0aGVhc3QtMS5hbWF6b25hd3MuY29tXC9hcC1zb3V0aGVhc3QtMV83d3pXVjZ5eUwiLCJ2ZXJzaW9uIjoyLCJjbGllbnRfaWQiOiI0NTBtYmFmYm5yZHMwcDhlNXJrM2pmNGp0NSIsIm9yaWdpbl9qdGkiOiJhMDEzNzdiNC0wOWYyLTQyZjAtYTI3NS1iZDcyMGI4ZDdiYzYiLCJ0b2tlbl91c2UiOiJhY2Nlc3MiLCJzY29wZSI6Im9wZW5pZCBwcm9maWxlIGVtYWlsIiwiYXV0aF90aW1lIjoxNjc5NTcwMTg3LCJleHAiOjE2Nzk1NzM3ODcsImlhdCI6MTY3OTU3MDE4NywianRpIjoiMDk0NjViZjYtYjQ3NS00NTRmLWEyNzItZjMyYTljYmE1NDFmIiwidXNlcm5hbWUiOiJhcHB1c2VyMDEifQ.gIkfpfdkR0awyo3d4bYpL4NB5Hq78YOS_xkQ3QrwHMyLzdzLJAmmRU9Ugm0M4zlN4h12S4Kju59Ixw1eH1dsyCXvdYGS8iAijoZJZYNPswUI7jiKck-3e3LHN9hmsj6VqB-Yc84-5eRq6sZPtbtfKn-Em9FgOUrZ6TgJ41irBxrEQcZQR2x0-paHrl8dEFIc2KuJp77KeEAnf02vEVw9jLzF_KpMf4RO6cCfwg3fWtusyFYGFQlx34HzkMc7bpjrJe-jvWRSBCNfzyumyeUtZzNiS1v8olYjCA2k2gGaYDDXWZxpj6TcghThGmxMaMBe2R5Azb9MKewFzTqK7qYfcg';
+      //   const mockUser = {
+      //     id: '9a29d5d4-bb39-4acf-92b6-1299b512e9c4',
+      //     username: 'appuser01',
+      //     firstname: 'User 01',
+      //     lastname: 'App',
+      //     phoneNumber: '+849853092875',
+      //     email: 'appuser01@testmail.com',
+      //     company: 'Company User 01',
+      //     address: 'Address User 01',
+      //     roles: ['user'],
+      //     isFirstTimeLogin: false,
+      //   };
+      //   setToken(mockToken);
+      //   setUser(mockUser);
+
+      //   httpService.attachTokenToHeader(mockToken);
+      //   httpService.saveTokenStorage(mockToken);
+      //   httpService.saveUserStorage(mockUser);
+      // //   setIsLogging(false);
+      // } else {
+      //   showError('User/password is not correct!');
+      // }
+    },
+    []
+  );
 
   const logout = useCallback(() => {
     httpService.clearStorage();
@@ -79,9 +99,12 @@ const AuthenticationProvider = ({ children }: { children: any }) => {
       user,
       logout,
       login,
-      isAdmin: !!user?.roles?.includes(PERMISSION_ENUM.ADMIN),
-      isAppManager: !!user?.roles?.includes(PERMISSION_ENUM.APP_MANAGER),
-      isUser: !!user?.roles?.includes(PERMISSION_ENUM.USER),
+      isAdmin: true,
+      isAppManager: true,
+      isUser: true,
+      // isAdmin: !!user?.roles?.includes(PERMISSION_ENUM.ADMIN),
+      // isAppManager: !!user?.roles?.includes(PERMISSION_ENUM.APP_MANAGER),
+      // isUser: !!user?.roles?.includes(PERMISSION_ENUM.USER),
     };
   }, [login, logout, user, token, isLogging]);
 
